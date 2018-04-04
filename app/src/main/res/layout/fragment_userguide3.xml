@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7cd155"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_cloud2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignLeft="@+id/iv_center"
+            android:layout_alignTop="@+id/iv_center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_cloud" />
+
+        <ImageView
+            android:id="@+id/iv_cloud3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/iv_center"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/ic_cloud" />
+
+        <ImageView
+            android:id="@+id/iv_center"
+            android:layout_width="263dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/img_guide3_center" />
+
+        <ImageView
+            android:id="@+id/iv_car1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/iv_center"
+            android:layout_alignTop="@+id/iv_center"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/ic_guide3_carleft"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_car2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_center"
+            android:layout_alignTop="@id/iv_center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="135dp"
+            android:src="@drawable/ic_guide3_carleft"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_car3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_center"
+            android:layout_alignRight="@+id/iv_center"
+            android:layout_marginBottom="60dp"
+            android:visibility="gone"
+            android:layout_marginRight="80dp"
+            android:src="@drawable/ic_guide3_car_right" />
+
+        <ImageView
+            android:id="@+id/iv_car4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/iv_center"
+            android:layout_alignLeft="@+id/iv_center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="110dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_guide3_carleft" />
+
+        <ImageView
+            android:id="@+id/iv_cloud1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="110dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_cloud" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="340dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/img_guide3_text" />
+
+    <include layout="@layout/layout_placeview"></include>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_guide3_point" />
+</LinearLayout>
