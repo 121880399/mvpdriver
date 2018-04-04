@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_actionbar">#ffffff</color><!--项目中所有的蓝色-->
-    <color name="color_div">#eeeeee</color><!--项目中所有的分隔线-->
+    <color name="color_div">#EBEBEB</color><!--项目中所有的分隔线-->
     <color name="color_white">#ffffff</color><!--项目中所有的白色-->
     <color name="color_data">#95acbc</color>
     <color name="color_address">#5a7995</color>
