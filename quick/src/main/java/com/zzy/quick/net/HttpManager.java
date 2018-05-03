@@ -107,6 +107,7 @@ public class HttpManager {
         Retrofit.Builder builder=new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(getClient(baseUrl,provider))
+                .addConverterFactory(new EmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create());
 
         if(useRx){

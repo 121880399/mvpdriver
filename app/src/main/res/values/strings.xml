@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mvp-driver</string>
+    <string name="url">http://39.106.250.181:8084/apprest/exec/</string>
 </resources>

@@ -60,7 +60,7 @@ public class BaseApplication extends Application {
 
             @Override
             public boolean configLogEnable() {
-                return false;
+                return true;
             }
 
             @Override
