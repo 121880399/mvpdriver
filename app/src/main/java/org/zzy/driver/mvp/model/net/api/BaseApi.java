@@ -1,5 +1,7 @@
 package org.zzy.driver.mvp.model.net.api;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.net.HttpManager;
 import com.zzy.quick.net.HttpSubscriber;
@@ -37,6 +39,7 @@ public class BaseApi {
 
 
     public void doPost(final HttpRequest request, final HttpCallBack callBack){
+        HttpHeader.setDefaultHeader(request);
         String strEntity= JsonFactory.getJsonUtils().toJson(request);
         BaseApi.getBaseService().request(strEntity)
                 .compose(HttpManager.<HttpResult>getErrorTransformer())

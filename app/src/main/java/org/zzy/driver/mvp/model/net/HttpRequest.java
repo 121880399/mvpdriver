@@ -1,5 +1,6 @@
 package org.zzy.driver.mvp.model.net;
 
+import android.os.Build;
 import android.util.ArrayMap;
 
 /**
@@ -18,7 +19,9 @@ public class HttpRequest {
      * Instantiates a new Request.
      */
     public HttpRequest(){
-        header =new ArrayMap();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            header =new ArrayMap();
+        }
         request =new Request();
     }
 
@@ -140,7 +143,9 @@ public class HttpRequest {
         private ArrayMap params;//请求数据
 
         public Request(){
-            params=new ArrayMap();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                params=new ArrayMap();
+            }
         }
 
         public ArrayMap getParams() {
