@@ -1,5 +1,6 @@
 package org.zzy.driver.mvp.model.net;
 
+import android.text.TextUtils;
 import android.widget.ExpandableListView;
 
 import com.zzy.quick.json.JsonFactory;
@@ -56,8 +57,13 @@ public class HttpResult extends BaseModel {
      * */
     public JSONObject getMainData(){
         try {
-            JSONObject object = JsonFactory.getJsonUtils().parseObject(response.getResult().getData());
-            return object;
+            String data=response.getResult().getData();
+            if(data.length()==0|| TextUtils.isEmpty(data)){
+                return null;
+            }else {
+                JSONObject object = JsonFactory.getJsonUtils().parseObject(data);
+                return object;
+            }
         }catch (Exception e){
             e.printStackTrace();
             return null;

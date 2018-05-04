@@ -23,4 +23,9 @@ public class CommonValue {
      */
     public static final String TOKENCODE = "token";
 
+    /**
+     * 成功标识
+     */
+    public static final String SUCCESS_STATUS = "10000";
+
 }

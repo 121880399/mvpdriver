@@ -102,6 +102,8 @@ dependencies {
     //tools
     provided rootProject.ext.dependencies["javax.annotation"]
     compile rootProject.ext.dependencies["androideventbus"]
+    compile rootProject.ext.dependencies["fastJson"]
+    compile rootProject.ext.dependencies["fastJson-converter"]
     compile rootProject.ext.dependencies["gson"]
 
     //test

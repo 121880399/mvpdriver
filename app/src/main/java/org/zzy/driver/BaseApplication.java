@@ -12,6 +12,8 @@ import com.zzy.quick.utils.log.LogFactory;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import retrofit2.Converter;
+import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 /**
  * Created by zhou on 2018/4/4.
@@ -71,6 +73,11 @@ public class BaseApplication extends Application {
             @Override
             public boolean useProgress() {
                 return false;
+            }
+
+            @Override
+            public Converter.Factory jsonParseFactory() {
+                return FastJsonConverterFactory.create();
             }
         });
     }

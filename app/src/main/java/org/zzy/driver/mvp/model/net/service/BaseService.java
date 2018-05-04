@@ -12,9 +12,9 @@ import retrofit2.http.POST;
  * Created by zhou on 2018/4/8.
  */
 
-public interface UserService {
+public interface BaseService {
 
     @FormUrlEncoded
     @POST("apprest/exec/")
-    Flowable<HttpResult> login(@Field("data")String data);
+    Flowable<HttpResult> request(@Field("data")String data);
 }
