@@ -58,7 +58,7 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
                         setContentView(getLayoutId());
                         initView();
                         initData();
-                        setListener();
+                        //setListener();
                 }
         }
 
@@ -199,7 +199,7 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
         /**
          * 设置监听
          * */
-        public abstract void setListener();
+        //public abstract void setListener();使用ButterKnife可以不需要设置监听
 
         /**
          * 是否使用EventBus

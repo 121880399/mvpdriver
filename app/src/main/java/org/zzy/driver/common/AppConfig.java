@@ -12,8 +12,10 @@ public class AppConfig {
     //外网地址
     public static final String RELEASE="http://www.unitransdata.com:8088";
 
+    public static final String DEMONSTRATION="http://39.106.250.181:8084/";
+
     //总地址
-    public static final String BASEURL = RELEASE + "/apprest/exec/";
+    public static final String BASEURL = TEST;
 
     //服务条款地址
     public static String SERVICEITEM = RELEASE+"/apprest/serviceitem.jsp";
@@ -23,4 +25,7 @@ public class AppConfig {
 
     //电话中心
     public static final String CALLCENTER = "4009006667";
+
+    //当前版本
+    public  static final String VERSION_1_1_1="0.0.0.1";
 }
