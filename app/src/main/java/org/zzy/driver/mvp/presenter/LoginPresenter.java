@@ -8,5 +8,5 @@ import org.zzy.driver.mvp.ui.LoginActivity;
  * Created by zhou on 2018/4/4.
  */
 
-public class LoginPresenter extends BasePresenter<LoginActivity> {
+public class LoginPresenter extends BasePresenter< LoginActivity> {
 }
