@@ -4,6 +4,8 @@ import android.os.Build;
 import android.util.ArrayMap;
 
 /**
+ * @function 请求实体类，这个类中除了全局变量以外，不要取get开头的方法名
+ * 会导致FastJson将实体类解析成String时出现错误，这个错误gson没有。
  * 项目名称: mvpDriver
  * 创建人: 周正一
  * 创建时间：2017/7/27
@@ -23,6 +25,22 @@ public class HttpRequest {
             header =new ArrayMap();
         }
         request =new Request();
+    }
+
+    public ArrayMap getHeader() {
+        return header;
+    }
+
+    public void setHeader(ArrayMap header) {
+        this.header = header;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     /**
@@ -105,7 +123,7 @@ public class HttpRequest {
      *
      * @return the request date
      */
-    public ArrayMap getParams() {
+    public ArrayMap readParams() {
         return request.getParams();
     }
 
@@ -114,10 +132,10 @@ public class HttpRequest {
      *
      * @return the boolean
      */
-    public boolean isZip() {
-        int zip= header.get("zip")==null?0: (int) header.get("zip");
-        return zip== 1;
-    }
+//    public boolean isZip() {
+//        int zip= header.get("zip")==null?0: (int) header.get("zip");
+//        return zip== 1;
+//    }
 
 
     /**
@@ -125,7 +143,7 @@ public class HttpRequest {
      *
      * @return the action
      */
-    public String getAction() {
+    public String readAction() {
         return (String) header.get("action");
     }
 
@@ -135,7 +153,7 @@ public class HttpRequest {
      *
      * @return the method
      */
-    public String getMethod() {
+    public String readMethod() {
         return (String) header.get("method");
     }
 

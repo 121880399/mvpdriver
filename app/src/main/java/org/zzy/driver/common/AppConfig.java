@@ -9,6 +9,9 @@ public class AppConfig {
     //测试地址
     public static final String TEST = "http://192.168.1.220:8084";
 
+    //调试地址
+    public static final String SHX = "http://192.168.1.127:8080";
+
     //外网地址
     public static final String RELEASE="http://www.unitransdata.com:8088";
 

@@ -53,9 +53,9 @@ public class BaseApi {
                     @Override
                     public void onNext(HttpResult httpResult) {
                         if(httpResult.getResponse().getStatus().equals(CommonValue.SUCCESS_STATUS)) {
-                            callBack.doSuccess(httpResult, request.getAction(), request.getMethod());
+                            callBack.doSuccess(httpResult, request.readAction(), request.readMethod());
                         }else{
-                            callBack.doFaild(httpResult, request.getAction(),request.getMethod());
+                            callBack.doFaild(httpResult, request.readAction(),request.readMethod());
                         }
                     }
                 });

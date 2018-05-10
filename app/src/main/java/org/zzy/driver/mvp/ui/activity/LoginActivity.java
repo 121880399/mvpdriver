@@ -1,6 +1,5 @@
-package org.zzy.driver.mvp.ui;
+package org.zzy.driver.mvp.ui.activity;
 
-import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
 import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.StatusBarUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.mvp.presenter.LoginPresenter;
@@ -52,9 +52,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
     @Override
     public void initData() {
         //初始化不显示密码
-        showPassword=true;
+        showPassword=false;
     }
 
+    @Override
+    public void initView() {
+        super.initView();
+        StatusBarUtils.setImage(this);
+    }
 
     @Override
     public void showError(String msg) {
@@ -86,11 +91,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
         if(showPassword){
             //如果当前是显示密码，就隐藏
             ivPasswordStatus.setImageResource(R.mipmap.ic_eye_close);
-            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }else{
             //如果当期是隐藏密码，就显示
             ivPasswordStatus.setImageResource(R.mipmap.ic_eye);
-            etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
         showPassword=!showPassword;
     }

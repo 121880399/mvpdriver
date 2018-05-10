@@ -1,6 +1,4 @@
-package org.zzy.driver.mvp.ui;
-
-import android.content.Intent;
+package org.zzy.driver.mvp.ui.activity;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
 import com.zzy.quick.router.Router;

@@ -1,4 +1,4 @@
-package org.zzy.driver.mvp.ui;
+package org.zzy.driver.mvp.ui.activity;
 
 
 import android.os.Bundle;

@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import org.zzy.driver.R;
-import org.zzy.driver.mvp.ui.LoginActivity;
+import org.zzy.driver.mvp.ui.activity.LoginActivity;
 
 
 /**

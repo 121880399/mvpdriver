@@ -2,9 +2,6 @@ package org.zzy.driver.mvp.presenter;
 
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
-import com.zzy.quick.net.HttpManager;
-import com.zzy.quick.net.HttpSubscriber;
-import com.zzy.quick.net.NetError;
 import com.zzy.quick.utils.SPUtils;
 import com.zzy.quick.utils.ToastUtils;
 
@@ -13,14 +10,10 @@ import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
-import org.zzy.driver.mvp.model.net.HttpHeader;
-import org.zzy.driver.mvp.model.net.HttpRequest;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
-import org.zzy.driver.mvp.model.net.api.BaseApi;
 import org.zzy.driver.mvp.model.net.api.UserApi;
-import org.zzy.driver.mvp.ui.LoginActivity;
-import org.zzy.driver.utils.MD5Util;
+import org.zzy.driver.mvp.ui.activity.LoginActivity;
 
 /**
  * @function LoginPresenter用来写登录的业务逻辑
