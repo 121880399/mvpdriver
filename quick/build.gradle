@@ -105,6 +105,7 @@ dependencies {
     compile rootProject.ext.dependencies["fastJson"]
     compile rootProject.ext.dependencies["fastJson-converter"]
     compile rootProject.ext.dependencies["gson"]
+    compile rootProject.ext.dependencies["zxing"]
 
     //test
     compile rootProject.ext.dependencies["logger"]

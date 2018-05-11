@@ -1,6 +1,7 @@
 package com.zzy.quick.image;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -15,6 +16,10 @@ import java.io.File;
 public interface ImageLoader {
 
 
+    /**
+     * 设置图片为圆形，包括默认的图片
+     * */
+    void loadCircleImage(String url, ImageView target, int resId);
 
     /**
      *

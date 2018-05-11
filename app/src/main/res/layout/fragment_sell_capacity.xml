@@ -45,10 +45,10 @@
                             android:textSize="@dimen/textsize_16" />
 
                         <TextView
+                            android:id="@+id/tv_startCity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@{capacity.startName}"
                             android:hint="请选择"
                             android:textColor="@color/color_orange"
                             android:textSize="@dimen/textsize_22" />
@@ -77,10 +77,10 @@
                             android:textSize="@dimen/textsize_16" />
 
                         <TextView
+                            android:id="@+id/tv_endCity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="@{capacity.endName}"
                             android:hint="请选择"
                             android:textColor="@color/color_orange"
                             android:textSize="@dimen/textsize_22" />
@@ -129,7 +129,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:hint="请选择日期"
-                                android:text="@{capacity.startTime}"
                                 android:textColor="@color/color_orange"
                                 android:textSize="@dimen/textsize_18" />
                         </LinearLayout>
@@ -194,7 +193,6 @@
                                     android:layout_marginTop="3dp"
                                     android:background="@null"
                                     android:hint="请输入价格"
-                                    android:text="@={capacity.price}"
                                     android:textColor="@color/color_orange"
                                     android:textSize="@dimen/textsize_18" />
                             </LinearLayout>
@@ -241,10 +239,10 @@
                                 android:textSize="@dimen/textsize_16" />
 
                             <TextView
+                                android:id="@+id/tv_vehicleCode"
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="@{capacity.vehiclecode}"
                                 android:textColor="@color/color_orange"
                                 android:textSize="@dimen/textsize_18" />
                         </LinearLayout>
@@ -291,10 +289,10 @@
                                 android:textSize="@dimen/textsize_16" />
 
                             <TextView
+                                android:id="@+id/tv_vehicleType"
                                 android:layout_width="120dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="@{capacity.vehicleType}"
                                 android:textColor="@color/color_orange"
                                 android:textSize="@dimen/textsize_18" />
                         </LinearLayout>

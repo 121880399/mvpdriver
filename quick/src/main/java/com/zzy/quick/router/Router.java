@@ -2,6 +2,7 @@ package com.zzy.quick.router;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -52,6 +53,20 @@ public class Router {
     public Router addFlags(int flags){
         if (intent != null) {
             intent.addFlags(flags);
+        }
+        return this;
+    }
+
+    public Router setAction(String action){
+        if(intent!=null) {
+            intent.setAction(action);
+        }
+        return this;
+    }
+
+    public Router setUri(Uri uri){
+        if(intent!=null) {
+            intent.setData(uri);
         }
         return this;
     }
