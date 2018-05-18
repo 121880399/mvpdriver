@@ -2,22 +2,20 @@ package org.zzy.driver.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zzy.quick.image.ImageFactory;
 import com.zzy.quick.mvp.ui.BaseFragment;
 import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.StatusBarUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.common.AppConfig;
-import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
+import org.zzy.driver.mvp.presenter.PersonCenterPresenter;
 import org.zzy.driver.mvp.ui.activity.HistoryWaybillActivity;
 import org.zzy.driver.mvp.ui.activity.PersonInfoActivity;
 import org.zzy.driver.mvp.ui.activity.QRCodeActivity;
@@ -25,19 +23,18 @@ import org.zzy.driver.mvp.ui.activity.RecommendActivity;
 import org.zzy.driver.mvp.ui.activity.SellCapacityRecordActivity;
 import org.zzy.driver.mvp.ui.activity.VehicleManagerActivity;
 import org.zzy.driver.mvp.ui.activity.WalletActivity;
+import org.zzy.driver.mvp.ui.activity.WebViewLoadActivity;
 import org.zzy.driver.utils.QrUtils;
 import org.zzy.driver.utils.UserInfoUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by zhou on 2018/5/10.
  */
 
-public class PersonCenterFragment extends BaseFragment {
+public class PersonCenterFragment extends BaseFragment<PersonCenterPresenter> {
 
 
     @BindView(R.id.iv_avatar)
@@ -70,6 +67,7 @@ public class PersonCenterFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         super.initView(view);
+        StatusBarUtils.setImage(getActivity());
         //初始化二维码
         QrUtils.createQRImage(String.valueOf(UserInfoUtils.getUserInfo().getId()), getActivity(),ivCode);
         //初始化头像
@@ -83,8 +81,8 @@ public class PersonCenterFragment extends BaseFragment {
     }
 
     @Override
-    public Object newPresenter() {
-        return null;
+    public PersonCenterPresenter newPresenter() {
+        return new PersonCenterPresenter();
     }
 
     /**
@@ -125,7 +123,10 @@ public class PersonCenterFragment extends BaseFragment {
      */
     @OnClick(R.id.ll_about_us)
     public void clickAboutUs() {
-
+        Router.newIntent(getActivity()).to(WebViewLoadActivity.class)
+                .putString("url","http://60.205.166.221:8084/apprest/about.jsp")
+                .putString("title","关于")
+                .launch();
     }
 
     /**
@@ -155,7 +156,7 @@ public class PersonCenterFragment extends BaseFragment {
      */
     @OnClick(R.id.ll_update)
     public void clickUpdate() {
-
+        getPresenter().checkUpdate();
     }
 
     /**

@@ -25,7 +25,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -106,6 +108,10 @@ dependencies {
     compile rootProject.ext.dependencies["fastJson-converter"]
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["zxing"]
+
+    //从相册中选择图片 或 拍照
+    compile rootProject.ext.dependencies["imagePicker"]
+
 
     //test
     compile rootProject.ext.dependencies["logger"]
