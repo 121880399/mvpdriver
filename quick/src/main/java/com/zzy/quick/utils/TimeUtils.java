@@ -1,7 +1,10 @@
 package com.zzy.quick.utils;
 
 
+import android.util.Log;
+
 import com.zzy.quick.utils.constant.TimeConstants;
+import com.zzy.quick.utils.log.LogFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -177,6 +180,20 @@ public final class TimeUtils {
      * </pre>
      * 注意：SimpleDateFormat不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
      */
+
+    public static SimpleDateFormat sdf1 = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm");
+    public static SimpleDateFormat sdf6 = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat sdf5 = new SimpleDateFormat(
+            "yyyyMMddHHmmss");
+    public static SimpleDateFormat sdf7 = new SimpleDateFormat(
+            "MM-dd HH:mm");
+    public static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    public static SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
+    public static SimpleDateFormat sdf4 = new SimpleDateFormat("HH-mm-ss");
+    public static SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
 
     private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -1635,4 +1652,92 @@ public final class TimeUtils {
             return true;
         }
     }
+
+    /**
+     * 获取当前时间并格式化成 yyyy-mm-dd 格式
+     *
+     * @return
+     */
+    public static final String getCurrentFormateTime2OfDate(String dateStr) {
+        try {
+            String format = sdf2.format(new Date(Long.valueOf(dateStr)));
+            return format;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
+    /**
+     * 获取当前时间并格式化成 yyyy-mm-dd 格式
+     *
+     * @return
+     */
+    public static final String getCurrentFormateTime2OfDate(long dateStr) {
+        try {
+            String format = sdf2.format(new Date(dateStr));
+            return format;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getArriveDays(String startTime,String endTime){
+        Date startDate = parseDate(startTime);
+        Date endDate =  parseDate(endTime);
+        long twoDay = getTwoDay(startDate, endDate);
+        if(twoDay<=1){
+            return "1日达";
+        }else{
+            return twoDay  + "日达";
+        }
+    }
+
+    /**
+     * 计算两个时间相差几天
+     */
+    public static long getTwoDay(Date begin_date, Date end_date) {
+        long day = 0;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String sdate = format.format(Calendar.getInstance().getTime());
+
+            if (begin_date == null) {
+                begin_date = format.parse(sdate);
+            }
+            if (end_date == null) {
+                end_date = format.parse(sdate);
+            }
+            if ((end_date.getTime() - begin_date.getTime()) % (24 * 60 * 60 * 1000) != 0) {
+                day = (end_date.getTime() - begin_date.getTime())
+                        / (24 * 60 * 60 * 1000) + 1;
+            } else {
+                day = (end_date.getTime() - begin_date.getTime())
+                        / (24 * 60 * 60 * 1000);
+            }
+        } catch (Exception e) {
+            return -1;
+        }
+        return day;
+    }
+
+    /**
+     * 将日期字符串转成日期
+     *
+     * @param strDate 字符串日期
+     * @return java.util.date日期类型
+     */
+    public static Date parseDate(String strDate) {
+        DateFormat dateFormat = sdf1;
+        Date returnDate = null;
+        try {
+            returnDate = dateFormat.parse(strDate);
+        } catch (ParseException e) {
+            LogFactory.getLogUtil().d("parseDate failed !");
+        }
+        return returnDate;
+
+    }
+
 }

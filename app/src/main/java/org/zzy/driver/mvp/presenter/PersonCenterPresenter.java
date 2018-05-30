@@ -91,6 +91,10 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterFragment> i
                 e.printStackTrace();
             }
         }
+
+        if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.CHANGEAVATAR_METHOD)){
+
+        }
     }
 
     @Override

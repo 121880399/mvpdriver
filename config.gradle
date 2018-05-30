@@ -107,7 +107,12 @@ ext {
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
             "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
-            "logger"                   : "com.orhanobut:logger:2.1.1"
+            "logger"                   : "com.orhanobut:logger:2.1.1",
+
+            //database
+            "object-box"               : "io.objectbox:objectbox-android:1.5.0",
+            "object-browser"           : "io.objectbox:objectbox-android-objectbrowser:1.5.0",
+            "object-processor"         : "io.objectbox:objectbox-processor:1.5.0"
     ]
 
 

@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import org.zzy.driver.R;
-import org.zzy.driver.mvp.presenter.adapter.FragmentAdapter;
+import org.zzy.driver.mvp.ui.adapter.FragmentAdapter;
 import org.zzy.driver.mvp.ui.fragment.UserGuideFragment1;
 import org.zzy.driver.mvp.ui.fragment.UserGuideFragment2;
 import org.zzy.driver.mvp.ui.fragment.UserGuideFragment3;

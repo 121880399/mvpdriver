@@ -6,7 +6,10 @@ package org.zzy.driver.common;
 
 public class CommonValue {
 
+    //用户信息
     public static final String USERINFO="userInfo";
+    //车辆信息
+    public static final String VEHICLEINFO="vehicleInfo";
 
     //标识是否是第一次登录
     public static final String FIRSTACCESS = "firstAccess";

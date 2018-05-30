@@ -1,7 +1,9 @@
 package org.zzy.driver.mvp.ui.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
@@ -12,12 +14,19 @@ import android.widget.TextView;
 import com.linchaolong.android.imagepicker.ImagePicker;
 import com.linchaolong.android.imagepicker.cropper.CropImage;
 import com.linchaolong.android.imagepicker.cropper.CropImageView;
+import com.zzy.quick.image.ImageFactory;
 import com.zzy.quick.mvp.ui.BaseActivity;
 import com.zzy.quick.utils.FileUtils;
 import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
+import org.zzy.driver.common.AppConfig;
+import org.zzy.driver.common.UserAuthTypeEnunm;
+import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
+import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
 import org.zzy.driver.mvp.presenter.PersonCenterPresenter;
+import org.zzy.driver.utils.UserInfoUtils;
+import org.zzy.driver.utils.VehicleInfoUtils;
 
 import java.io.File;
 
@@ -84,6 +93,18 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
     public void initData() {
         //设置裁剪图片
         imagePicker.setCropImage(true);
+        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+        //先注释，以后有用
+        //ResponseVehicle vehicleInfo = VehicleInfoUtils.getVehicleInfo();
+        tvUserName.setText(userInfo.getReal_name());
+        tvPhone.setText(userInfo.getPhone());
+        tvBaseName.setText(userInfo.getRegion_name());
+        tvUserType.setText(UserAuthTypeEnunm.getName(userInfo.getAuth_type()));
+        tvCompany.setText(userInfo.getOrganization_name());
+        //tvVehicleCode.setText(vehicleInfo.getCode());
+        //初始化头像
+        ImageFactory.getImageLoader()
+                .loadCircleImage(AppConfig.IMAGE_URL + userInfo.getIcon(),ivIcon,R.drawable.img_default_avatar);
     }
 
     @Override
@@ -129,6 +150,17 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imagePicker.onActivityResult(this,requestCode,resultCode,data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imagePicker.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
+    }
 
     /**
      * 弹出对话框，选择相册或者启动摄像头拍照
@@ -140,6 +172,7 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
                         // 回调
                         ImagePicker.Callback callback = new ImagePicker.Callback() {
                             @Override public void onPickImage(Uri imageUri) {
+
                             }
 
                             @Override public void onCropImage(Uri imageUri) {

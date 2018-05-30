@@ -116,4 +116,7 @@ dependencies {
     //test
     compile rootProject.ext.dependencies["logger"]
     testCompile rootProject.ext.dependencies["junit"]
+
+
 }
+

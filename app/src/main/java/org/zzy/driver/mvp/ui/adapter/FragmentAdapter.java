@@ -1,4 +1,4 @@
-package org.zzy.driver.mvp.presenter.adapter;
+package org.zzy.driver.mvp.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

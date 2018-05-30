@@ -137,7 +137,6 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterPresenter> {
         Router.newIntent(getActivity())
                 .setAction(Intent.ACTION_DIAL)
                 .setUri(Uri.parse("tel:" + AppConfig.CALLCENTER))
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .launch();
     }
 

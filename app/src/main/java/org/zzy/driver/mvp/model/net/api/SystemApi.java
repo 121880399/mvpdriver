@@ -12,6 +12,9 @@ import org.zzy.driver.mvp.model.net.RequestCenter;
 public class SystemApi extends BaseApi{
     private static final int ANDROID_PLATFORM=0;
 
+    /**
+     * 检查是否有更新
+     * */
     public void checkUpdate(int versionCode, String versionName, HttpCallBack callBack){
         HttpRequest request=new HttpRequest();
         request.addHeader("action", RequestCenter.VERSION_ACTION);
