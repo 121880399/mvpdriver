@@ -9,11 +9,15 @@ import android.view.View;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.SPUtils;
 import com.zzy.quick.utils.ToastUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.zzy.driver.R;
+import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUpdate;
+import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
@@ -36,10 +40,7 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterFragment> i
         systemApi.checkUpdate(ChannelUtil.getVersionCode(getView().getActivity()), ChannelUtil.getVersionName(getView().getActivity()), this);
     }
 
-    public void setUserHead(File file){
-        UserApi userApi=new UserApi();
-        userApi.changeAvatar(file, UserInfoUtils.getUserInfo().getId(),this);
-    }
+
 
     @Override
     public void doSuccess(HttpResult response, String requestUrl, String method) {
@@ -92,9 +93,7 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterFragment> i
             }
         }
 
-        if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.CHANGEAVATAR_METHOD)){
 
-        }
     }
 
     @Override

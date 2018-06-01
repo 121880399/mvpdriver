@@ -25,6 +25,7 @@ import org.zzy.driver.common.UserAuthTypeEnunm;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
 import org.zzy.driver.mvp.presenter.PersonCenterPresenter;
+import org.zzy.driver.mvp.presenter.PersonInfoPresenter;
 import org.zzy.driver.utils.UserInfoUtils;
 import org.zzy.driver.utils.VehicleInfoUtils;
 
@@ -37,7 +38,7 @@ import butterknife.OnClick;
  * Created by zhou on 2018/5/11.
  */
 
-public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
+public class PersonInfoActivity extends BaseActivity<PersonInfoPresenter> {
 
 
     @BindView(R.id.iv_icon)
@@ -67,9 +68,11 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
 
     private ImagePicker imagePicker = new ImagePicker();
 
+    private ResponseUserInfo userInfo;
+
     @Override
-    public PersonCenterPresenter newPresenter() {
-        return new PersonCenterPresenter();
+    public PersonInfoPresenter newPresenter() {
+        return new PersonInfoPresenter();
     }
 
     @Override
@@ -84,7 +87,7 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
         getTopbar().setLeftImageListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                //onBackPressed();
             }
         });
     }
@@ -93,7 +96,7 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
     public void initData() {
         //设置裁剪图片
         imagePicker.setCropImage(true);
-        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+        userInfo = UserInfoUtils.getUserInfo();
         //先注释，以后有用
         //ResponseVehicle vehicleInfo = VehicleInfoUtils.getVehicleInfo();
         tvUserName.setText(userInfo.getReal_name());
@@ -102,7 +105,13 @@ public class PersonInfoActivity extends BaseActivity<PersonCenterPresenter> {
         tvUserType.setText(UserAuthTypeEnunm.getName(userInfo.getAuth_type()));
         tvCompany.setText(userInfo.getOrganization_name());
         //tvVehicleCode.setText(vehicleInfo.getCode());
-        //初始化头像
+        showAvatar();
+    }
+
+    /**
+     * 显示头像
+     * */
+    public void showAvatar(){
         ImageFactory.getImageLoader()
                 .loadCircleImage(AppConfig.IMAGE_URL + userInfo.getIcon(),ivIcon,R.drawable.img_default_avatar);
     }

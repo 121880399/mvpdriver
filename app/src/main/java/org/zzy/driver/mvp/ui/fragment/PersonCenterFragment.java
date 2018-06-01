@@ -70,7 +70,13 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterPresenter> {
         StatusBarUtils.setImage(getActivity());
         //初始化二维码
         QrUtils.createQRImage(String.valueOf(UserInfoUtils.getUserInfo().getId()), getActivity(),ivCode);
-        //初始化头像
+        showAvatar();
+    }
+
+    /**
+     * 显示头像
+     * */
+    public void showAvatar(){
         ImageFactory.getImageLoader()
                 .loadCircleImage(AppConfig.IMAGE_URL + UserInfoUtils.getUserInfo().getIcon(),ivAvatar,R.drawable.img_default_avatar);
     }

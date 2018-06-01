@@ -18,6 +18,7 @@ public class HttpHeader {
         request.addHeader("token", SPUtils.getInstance().getString(CommonValue.TOKENCODE));
         request.addHeader("device", "xiaomi");
         request.addHeader("platform","android");
+        request.addHeader("charset","utf-8");
         return request;
     }
 }

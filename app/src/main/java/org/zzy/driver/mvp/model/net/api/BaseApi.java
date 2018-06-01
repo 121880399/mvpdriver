@@ -9,6 +9,7 @@ import com.zzy.quick.net.HttpManager;
 import com.zzy.quick.net.HttpSubscriber;
 import com.zzy.quick.net.NetError;
 import com.zzy.quick.utils.ToastUtils;
+import com.zzy.quick.utils.log.LogFactory;
 
 import org.zzy.driver.common.AppConfig;
 import org.zzy.driver.common.CommonValue;
@@ -81,10 +82,12 @@ public class BaseApi {
         Map<String,RequestBody> files=new HashMap<>();
         for (String key : fileMap.keySet()) {
             //userid+字段名称用base64编码+.jpg
-            String filename= new String(Base64.encode((UserInfoUtils.getUserInfo().getId()+key).getBytes(),Base64.DEFAULT))+".jpg";
-            files.put(key+"; filename=\""+filename+"\"",RequestBody.create(MediaType.parse("image/jpeg"),fileMap.get(key)));
+            String filename= new String(Base64.encode((UserInfoUtils.getUserInfo().getId()+key).getBytes(),Base64.NO_WRAP));
+            files.put(key+"\"; filename=\""+filename.concat(".jpg"),RequestBody.create(MediaType.parse("image/png"),fileMap.get(key)));
         }
-        BaseApi.getBaseService().request(strEntity,files)
+        //单独设置content-type
+        RequestBody data=RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"),strEntity);
+        BaseApi.getBaseService().request(data,files)
                 .compose(HttpManager.<HttpResult>getErrorTransformer())
                 .compose(HttpManager.<HttpResult>getFlowableScheduler())
                 .subscribe(new HttpSubscriber<HttpResult>() {
@@ -103,6 +106,7 @@ public class BaseApi {
                     }
                 });
     }
+
 
 
 }
