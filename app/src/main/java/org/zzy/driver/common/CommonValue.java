@@ -31,4 +31,13 @@ public class CommonValue {
      */
     public static final String SUCCESS_STATUS = "10000";
 
+
+    /**
+     * 选择城市所用标识
+     * **/
+    public static final int CHOOSE_START_CITY=0; //起始城市
+    public static final int CHOOSE_END_CITY=1; //结束城市
+    public static final int CHOOSE_BASE=1; //选择驻地城市
+
+
 }

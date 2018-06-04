@@ -87,7 +87,7 @@ public class PersonInfoActivity extends BaseActivity<PersonInfoPresenter> {
         getTopbar().setLeftImageListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //onBackPressed();
+                onBackPressed();
             }
         });
     }

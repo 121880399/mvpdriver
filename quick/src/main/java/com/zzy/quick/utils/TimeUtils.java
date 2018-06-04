@@ -1740,4 +1740,124 @@ public final class TimeUtils {
 
     }
 
+    /**
+     * 获取当前日期的年份
+     *
+     * @return
+     */
+    public static int getCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取当前日期的月份,从0开始
+     *
+     * @return
+     */
+    public static int getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取当前日期的日
+     *
+     * @return
+     */
+    public static int getCurrentDay() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取指定日期的年份
+     *
+     * @return
+     */
+    public static int getYear(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取指定日期的月份
+     *
+     * @return
+     */
+    public static int getMonth(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取指定日期的日
+     *
+     * @return
+     */
+    public static int getDay(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取指定日期的日
+     */
+    public static int getDay(long milliseconds) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(milliseconds);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 判断给定的时间是否在今天之前
+     */
+    public static boolean isPreDate(int year, int month, int day) {
+        Date date = new Date();
+        int currentYear = getYear(date);
+        int currentMonth = getMonth(date) + 1;
+        int currentDay = getDay(date);
+        //先判断年份，如果年份小于则返true
+        if (year < currentYear) {
+            return true;
+        } else {
+            //等于则继续判断月份，大于则放回false
+            if (year == currentYear) {
+                //月份小于则返回true,等于则继续判断日期
+                if (month < currentMonth) {
+                    return true;
+                } else {
+                    if (month == currentMonth) {
+                        //日期小于则放回true，否则都是false
+                        if (day < currentDay) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 获取某年某月的天数
+     *
+     * @param year  int
+     * @param month int 月份[1-12]
+     * @return int
+     */
+    public static int getDaysOfMonth(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, 1);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
 }

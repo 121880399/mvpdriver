@@ -134,7 +134,7 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_dateChange"
+                            android:id="@+id/tv_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
@@ -144,7 +144,7 @@
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="2dp"
-                            android:text="更改"
+                            android:text="选择"
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/textsize_14" />
                     </LinearLayout>
@@ -179,11 +179,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <ImageView
-                                    android:layout_width="1dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="2dp"
-                                    android:background="@color/black" />
+
 
                                 <EditText
                                     android:id="@+id/et_price"
