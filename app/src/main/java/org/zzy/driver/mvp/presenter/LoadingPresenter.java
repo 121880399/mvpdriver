@@ -5,7 +5,7 @@ import com.zzy.quick.utils.SPUtils;
 
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
-import org.zzy.driver.mvp.ui.LoadingActivity;
+import org.zzy.driver.mvp.ui.activity.LoadingActivity;
 
 /**
  * Created by zhou on 2018/4/4.

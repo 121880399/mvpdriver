@@ -3,9 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/color_white"
+    android:background="@drawable/img_login_bg"
     >
-    <include layout="@layout/layout_topbar"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/ic_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="互联运力   一点就通"
+        android:textSize="@dimen/textsize_16" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

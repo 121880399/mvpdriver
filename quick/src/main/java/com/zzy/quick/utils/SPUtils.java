@@ -48,7 +48,7 @@ public final class SPUtils {
      * @return {@link SPUtils}
      */
     public static SPUtils getInstance(String spName) {
-        if (isSpace(spName)) spName = "PlusOneLivePush";
+        if (isSpace(spName)) spName = "mvpDriver";
         SPUtils spUtils = SP_UTILS_MAP.get(spName);
         if (spUtils == null) {
             spUtils = new SPUtils(spName);

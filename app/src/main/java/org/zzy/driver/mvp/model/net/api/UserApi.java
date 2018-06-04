@@ -1,29 +1,47 @@
 package org.zzy.driver.mvp.model.net.api;
 
-import com.zzy.quick.net.HttpManager;
+import org.zzy.driver.mvp.model.net.HttpCallBack;
+import org.zzy.driver.mvp.model.net.HttpRequest;
+import org.zzy.driver.mvp.model.net.RequestCenter;
+import org.zzy.driver.utils.MD5Util;
 
-import org.zzy.driver.common.AppConfig;
-import org.zzy.driver.mvp.model.net.service.UserService;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by zhou on 2018/4/8.
+ * @function 提供与用户相关的API接口
+ * Created by zhou on 2018/5/4.
  */
 
-public class UserApi {
+public class UserApi extends BaseApi{
 
-    private static UserService userService;
-
-    public static UserService getUserService(){
-        if(userService==null){
-            synchronized (UserApi.class) {
-                if(userService==null){
-                    userService= HttpManager.getInstance().getRetrofit(AppConfig.BASEURL,true).create(UserService.class);
-                }
-            }
-        }
-        return userService;
+    /**
+     * 登录接口
+     * */
+    public void login(String userName, String password, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.USER_ACTION);
+        request.addHeader("method",RequestCenter.LOGIN_METHOD);
+        request.putParams("username",userName);
+        //密码要两次加密，加密算法使用APP工程下utils包中的类
+        request.putParams("password", MD5Util.md5Encode(MD5Util.md5Encode(password)));
+        doPost(request,callBack);
     }
 
-
+    /**
+     * 更改头像接口
+     * */
+    public void changeAvatar(File avatar,int userId ,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.USER_ACTION);
+        request.addHeader("method",RequestCenter.CHANGEAVATAR_METHOD);
+        request.putParams("userId",userId);
+        Map<String, File> fileMap = new HashMap<>();
+        if (avatar.exists()) {
+            fileMap.put("avatorImage", avatar);
+        }
+        uploadeFile(request,fileMap,callBack);
+    }
 
 }

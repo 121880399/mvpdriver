@@ -59,7 +59,7 @@ public abstract class BaseFragment<P extends IPresenter> extends RxFragment impl
             EventBus.getDefault().register(this);
         }
         initData();
-        setListener();
+        //setListener();
     }
 
     @Override
@@ -136,7 +136,7 @@ public abstract class BaseFragment<P extends IPresenter> extends RxFragment impl
     /**
      * 设置监听
      * */
-    public abstract void setListener();
+    //public abstract void setListener();使用ButterKnife可以不需要设置监听
 
     /**
      * 显示错误信息

@@ -1,8 +1,8 @@
 ext {
 
     android = [
-            compileSdkVersion       : 25,
-            buildToolsVersion       : "26.0.2",
+            compileSdkVersion       : 26,
+            buildToolsVersion       : "27.0.3",
             minSdkVersion           : 15,
             targetSdkVersion        : 25,
             versionCode             : 1,
@@ -10,7 +10,7 @@ ext {
     ]
 
     version = [
-            androidSupportSdkVersion: "25.3.1",
+            androidSupportSdkVersion: "26.0.2",
             retrofitSdkVersion      : "2.3.0",
             dagger2SdkVersion       : "2.10",
             butterknifeSdkVersion   : "8.6.0",
@@ -91,6 +91,10 @@ ext {
             "arouter"                  : "com.alibaba:arouter-api:1.2.1.1",
             "arouter-compiler"         : "com.alibaba:arouter-compiler:1.1.2.1",
             "progressmanager"          : "me.jessyan:progressmanager:1.2.5",
+            "fastJson"                 : "com.alibaba:fastjson:1.2.46",
+            "fastJson-converter"       : "org.ligboy.retrofit2:converter-fastjson:2.1.0",
+            "zxing"                    : "com.google.zxing:core:3.3.2",
+            "imagePicker"              : "com.linchaolong.android:imagepicker:1.5",
 
             //test
             "junit"                    : "junit:junit:4.12",
@@ -103,7 +107,12 @@ ext {
             "canary-debug"             : "com.squareup.leakcanary:leakcanary-android:${version["canarySdkVersion"]}",
             "canary-release"           : "com.squareup.leakcanary:leakcanary-android-no-op:${version["canarySdkVersion"]}",
             "umeng-analytics"          : "com.umeng.analytics:analytics:6.0.1",
-            "logger"                   : "com.orhanobut:logger:2.1.1"
+            "logger"                   : "com.orhanobut:logger:2.1.1",
+
+            //database
+            "object-box"               : "io.objectbox:objectbox-android:1.5.0",
+            "object-browser"           : "io.objectbox:objectbox-android-objectbrowser:1.5.0",
+            "object-processor"         : "io.objectbox:objectbox-processor:1.5.0"
     ]
 
 

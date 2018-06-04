@@ -1,6 +1,9 @@
 package com.zzy.quick.utils;
 
 import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -12,6 +15,8 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,6 +41,21 @@ public final class FileUtils {
     private static final String LINE_SEP = System.getProperty("line.separator");
 
     private static int sBufferSize = 8192;
+
+
+    /**
+     * 将一个uri转换成file文件
+     * 注意判断返回的File是否为空
+     */
+    public static File uri2File(Uri uri) {
+        File file= null;
+        try {
+            file = new File(new URI(uri.toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
 
     /**
      * 根据文件路径获取文件
@@ -1162,4 +1182,6 @@ public final class FileUtils {
         }
         return true;
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.zzy.quick.net;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import retrofit2.Converter;
 
 /**
  * 项目名称: QuickMvp
@@ -44,4 +45,9 @@ public interface NetProvider {
      * 是否使用进度监听
      * */
     boolean useProgress();
+
+    /**
+     * 返回在Retrofit中要使用的Json工厂，这里提供回调的目的是为了让用户在gson和fastjson之间切换
+     * */
+    Converter.Factory jsonParseFactory();
 }

@@ -20,8 +20,14 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     annotationProcessor rootProject.ext.dependencies["butterknife-apt"]
     compile project(':quick')
+    //数据库
+    compile rootProject.ext.dependencies["object-box"]
+    releaseImplementation rootProject.ext.dependencies["object-browser"]
+    annotationProcessor  rootProject.ext.dependencies["object-processor"]
 }
+apply plugin: 'io.objectbox'

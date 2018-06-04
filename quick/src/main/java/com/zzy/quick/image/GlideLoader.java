@@ -22,41 +22,55 @@ import java.io.File;
  * 利用Glide实现图片加载
  */
 
-public class GlideLoader implements ImageLoader{
+public class GlideLoader implements ImageLoader {
 
-    private static final String ASSETS_HEADER="file:///android_asset/";
+    private static final String ASSETS_HEADER = "file:///android_asset/";
 
     @Override
     public void loadNet(String url, ImageView target) {
-        loadNet(url,target,null);
+        loadNet(url, target, null);
     }
 
     @Override
     public void loadNet(String url, ImageView target, Options options) {
-        load(getRequestManager(target.getContext()).load(url),target,options);
+        load(getRequestManager(target.getContext()).load(url), target, options);
+    }
+
+    /**
+     * 设置图片为圆形，包括默认的图片
+     * */
+    @Override
+    public void loadCircleImage(String url,ImageView target,int resId) {
+        Glide.with(target.getContext())
+                .load(url)
+                .centerCrop()
+                .crossFade()
+                .bitmapTransform(new GlideCircleTransform(target.getContext()))
+                .placeholder(resId)
+                .into(target);
     }
 
     @Override
     public void loadNet(Context context, String url, Options options, LoadCallback callback) {
         DrawableTypeRequest request = getRequestManager(context).load(url);
-        if(options==null) options=Options.defaultOptions();
+        if (options == null) options = Options.defaultOptions();
 
-        if(options.loadingResId!= Options.RES_NONE){
+        if (options.loadingResId != Options.RES_NONE) {
             request.placeholder(options.loadingResId);
         }
 
-        if(options.loadErrorResId!=Options.RES_NONE){
+        if (options.loadErrorResId != Options.RES_NONE) {
             request.error(options.loadErrorResId);
         }
 
-        wrapScaleType(request,options)
+        wrapScaleType(request, options)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)//硬盘策略只保存源文件
                 .crossFade()
                 .into(new SimpleTarget<GlideBitmapDrawable>() {
                     @Override
                     public void onResourceReady(GlideBitmapDrawable resource, GlideAnimation glideAnimation) {
-                        if(resource!=null && resource.getBitmap()!=null){
-                            if(callback!=null){
+                        if (resource != null && resource.getBitmap() != null) {
+                            if (callback != null) {
                                 callback.onLoadSuccess(resource.getBitmap());
                             }
                         }
@@ -65,7 +79,7 @@ public class GlideLoader implements ImageLoader{
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        if(callback!=null){
+                        if (callback != null) {
                             callback.onLoadFailed(e);
                         }
                     }
@@ -74,17 +88,17 @@ public class GlideLoader implements ImageLoader{
 
     @Override
     public void loadResource(int resId, ImageView target, Options options) {
-        load(getRequestManager(target.getContext()).load(resId),target,options);
+        load(getRequestManager(target.getContext()).load(resId), target, options);
     }
 
     @Override
     public void loadAssets(String assetName, ImageView target, Options options) {
-        load(getRequestManager(target.getContext()).load(ASSETS_HEADER+assetName),target,options);
+        load(getRequestManager(target.getContext()).load(ASSETS_HEADER + assetName), target, options);
     }
 
     @Override
     public void loadFile(File file, ImageView target, Options options) {
-        load(getRequestManager(target.getContext()).load(file),target,options);
+        load(getRequestManager(target.getContext()).load(file), target, options);
     }
 
     @Override
@@ -107,33 +121,33 @@ public class GlideLoader implements ImageLoader{
         getRequestManager(context).pauseRequests();
     }
 
-    private void load(DrawableTypeRequest request,ImageView target,Options options){
-        if(options==null)options =Options.defaultOptions();
+    private void load(DrawableTypeRequest request, ImageView target, Options options) {
+        if (options == null) options = Options.defaultOptions();
 
-        if(options.loadingResId != Options.RES_NONE){
+        if (options.loadingResId != Options.RES_NONE) {
             request.placeholder(options.loadingResId);
         }
 
-        if(options.loadErrorResId!= Options.RES_NONE){
+        if (options.loadErrorResId != Options.RES_NONE) {
             request.error(options.loadErrorResId);
         }
 
-        wrapScaleType(request,options)
+        wrapScaleType(request, options)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .crossFade()
                 .into(target);
     }
 
-    private RequestManager getRequestManager(Context context){
-        if(context instanceof Activity){
+    private RequestManager getRequestManager(Context context) {
+        if (context instanceof Activity) {
             return Glide.with((Activity) context);
         }
         return Glide.with(context);
     }
 
-    private DrawableTypeRequest wrapScaleType(DrawableTypeRequest request,Options options){
-        if(options!=null && options.scaleType!=null){
-            switch (options.scaleType){
+    private DrawableTypeRequest wrapScaleType(DrawableTypeRequest request, Options options) {
+        if (options != null && options.scaleType != null) {
+            switch (options.scaleType) {
                 case MATRIX:
                     break;
                 case FIT_XY:
@@ -154,6 +168,10 @@ public class GlideLoader implements ImageLoader{
                     break;
             }
         }
-        return  request;
+        return request;
     }
+
+
 }
+
+

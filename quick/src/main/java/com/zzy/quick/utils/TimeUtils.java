@@ -1,7 +1,10 @@
 package com.zzy.quick.utils;
 
 
+import android.util.Log;
+
 import com.zzy.quick.utils.constant.TimeConstants;
+import com.zzy.quick.utils.log.LogFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -177,6 +180,20 @@ public final class TimeUtils {
      * </pre>
      * 注意：SimpleDateFormat不是线程安全的，线程安全需用{@code ThreadLocal<SimpleDateFormat>}
      */
+
+    public static SimpleDateFormat sdf1 = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm");
+    public static SimpleDateFormat sdf6 = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat sdf5 = new SimpleDateFormat(
+            "yyyyMMddHHmmss");
+    public static SimpleDateFormat sdf7 = new SimpleDateFormat(
+            "MM-dd HH:mm");
+    public static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    public static SimpleDateFormat sdf3 = new SimpleDateFormat("HH:mm");
+    public static SimpleDateFormat sdf4 = new SimpleDateFormat("HH-mm-ss");
+    public static SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
 
     private static final DateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -1635,4 +1652,212 @@ public final class TimeUtils {
             return true;
         }
     }
+
+    /**
+     * 获取当前时间并格式化成 yyyy-mm-dd 格式
+     *
+     * @return
+     */
+    public static final String getCurrentFormateTime2OfDate(String dateStr) {
+        try {
+            String format = sdf2.format(new Date(Long.valueOf(dateStr)));
+            return format;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dateStr;
+    }
+
+    /**
+     * 获取当前时间并格式化成 yyyy-mm-dd 格式
+     *
+     * @return
+     */
+    public static final String getCurrentFormateTime2OfDate(long dateStr) {
+        try {
+            String format = sdf2.format(new Date(dateStr));
+            return format;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getArriveDays(String startTime,String endTime){
+        Date startDate = parseDate(startTime);
+        Date endDate =  parseDate(endTime);
+        long twoDay = getTwoDay(startDate, endDate);
+        if(twoDay<=1){
+            return "1日达";
+        }else{
+            return twoDay  + "日达";
+        }
+    }
+
+    /**
+     * 计算两个时间相差几天
+     */
+    public static long getTwoDay(Date begin_date, Date end_date) {
+        long day = 0;
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String sdate = format.format(Calendar.getInstance().getTime());
+
+            if (begin_date == null) {
+                begin_date = format.parse(sdate);
+            }
+            if (end_date == null) {
+                end_date = format.parse(sdate);
+            }
+            if ((end_date.getTime() - begin_date.getTime()) % (24 * 60 * 60 * 1000) != 0) {
+                day = (end_date.getTime() - begin_date.getTime())
+                        / (24 * 60 * 60 * 1000) + 1;
+            } else {
+                day = (end_date.getTime() - begin_date.getTime())
+                        / (24 * 60 * 60 * 1000);
+            }
+        } catch (Exception e) {
+            return -1;
+        }
+        return day;
+    }
+
+    /**
+     * 将日期字符串转成日期
+     *
+     * @param strDate 字符串日期
+     * @return java.util.date日期类型
+     */
+    public static Date parseDate(String strDate) {
+        DateFormat dateFormat = sdf1;
+        Date returnDate = null;
+        try {
+            returnDate = dateFormat.parse(strDate);
+        } catch (ParseException e) {
+            LogFactory.getLogUtil().d("parseDate failed !");
+        }
+        return returnDate;
+
+    }
+
+    /**
+     * 获取当前日期的年份
+     *
+     * @return
+     */
+    public static int getCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取当前日期的月份,从0开始
+     *
+     * @return
+     */
+    public static int getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取当前日期的日
+     *
+     * @return
+     */
+    public static int getCurrentDay() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取指定日期的年份
+     *
+     * @return
+     */
+    public static int getYear(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.YEAR);
+    }
+
+    /**
+     * 获取指定日期的月份
+     *
+     * @return
+     */
+    public static int getMonth(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.MONTH);
+    }
+
+    /**
+     * 获取指定日期的日
+     *
+     * @return
+     */
+    public static int getDay(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取指定日期的日
+     */
+    public static int getDay(long milliseconds) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(milliseconds);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 判断给定的时间是否在今天之前
+     */
+    public static boolean isPreDate(int year, int month, int day) {
+        Date date = new Date();
+        int currentYear = getYear(date);
+        int currentMonth = getMonth(date) + 1;
+        int currentDay = getDay(date);
+        //先判断年份，如果年份小于则返true
+        if (year < currentYear) {
+            return true;
+        } else {
+            //等于则继续判断月份，大于则放回false
+            if (year == currentYear) {
+                //月份小于则返回true,等于则继续判断日期
+                if (month < currentMonth) {
+                    return true;
+                } else {
+                    if (month == currentMonth) {
+                        //日期小于则放回true，否则都是false
+                        if (day < currentDay) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 获取某年某月的天数
+     *
+     * @param year  int
+     * @param month int 月份[1-12]
+     * @return int
+     */
+    public static int getDaysOfMonth(int year, int month) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, 1);
+        return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    }
+
 }

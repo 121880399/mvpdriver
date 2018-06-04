@@ -43,6 +43,15 @@ public class ResponseData {
         private int pageCount;
         private int currentPage;
         private String data;
+        private int size;
+
+        public int getSize() {
+            return size;
+        }
+
+        public void setSize(int size) {
+            this.size = size;
+        }
 
         public int getPageCount() {
             return pageCount;

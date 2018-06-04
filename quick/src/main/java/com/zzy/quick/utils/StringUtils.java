@@ -2,6 +2,11 @@ package com.zzy.quick.utils;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+
+import java.text.DecimalFormat;
 
 /**
  * 项目名称: PlusOneLivePush
@@ -72,5 +77,89 @@ public class StringUtils {
             retData[i / 2] = (byte) int_ch;//将转化后的数放入Byte里
         }
         return retData;
+    }
+
+    /**
+     * 拼接两个字符串，不判断是否为空
+     * */
+    public static String strCompound(@NonNull String ... str){
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<str.length;i++){
+            sb.append(str[i]);
+        }
+        return  sb.toString();
+    }
+
+    /**
+     * 将价格格式化为带人民币符号
+     */
+    @NonNull
+    public static SpannableStringBuilder formatMoney(String price) {
+        String str=parseStringPattern2(price, 2);
+        return resizeStr(addRmbTag(str),2);
+    }
+
+    /**
+     * 添加人民币符号
+     * */
+    public static String addRmbTag(String price){
+        String moneyStr = "¥%s";
+        return String.format(moneyStr, price);
+    }
+
+    /**
+     * 金额字符串的小数点后缩小
+     *
+     * @param str      字符串
+     * @param resizeNumber 需要缩小的部分字符串长度
+     * @return SpannableStringBuilder
+     */
+    @NonNull
+    public static SpannableStringBuilder resizeStr(@NonNull String str, int resizeNumber) {
+        int fstart = str.length()-resizeNumber;
+        int fend = str.length();
+        SpannableStringBuilder style = new SpannableStringBuilder(str);
+        style.setSpan(new RelativeSizeSpan(0.7f), fstart, fend, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        return style;
+    }
+
+    /**
+     * 按千位分割格式格式化数字
+     *
+     * @param text  原数字
+     * @param scale 小数点保留位数
+     * @return
+     */
+    public static String parseStringPattern2(String text, int scale) {
+        if (text == null || "".equals(text) || "null".equals(text)) {
+            return parseStringPattern2("0", scale);
+        }
+        if (text.contains(",") || text.contains("，")) {
+            return text;
+        }
+        String temp = "###,###,###,###,###,###,###,##0";
+        if (scale > 0)
+            temp += ".";
+        for (int i = 0; i < scale; i++)
+            temp += "0";
+        DecimalFormat format = new DecimalFormat(temp);
+        Double d = getDoubleFromStr(text);
+        return format.format(d).toString();
+    }
+
+    /**
+     * String类型转换为double类型
+     *
+     * @param str
+     * @return
+     */
+    public static double getDoubleFromStr(String str) {
+        double d = 0;
+        try {
+            d = Double.valueOf(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return d;
     }
 }

@@ -1,16 +1,14 @@
 package org.zzy.driver.common;
 
 /**
- * 项目名称: PlusOneLivePush
+ * @function 授权错误枚举
+ * 项目名称: mvpDriver
  * 创建人: 周正一
  * 创建时间：2017/8/3
  */
 
 public enum AuthErrorEnum {
-    USERORPASSWORD_ERROR("1000002"),//用户名或密码错误
-    USERNULL_ERROR("1000003"),//用户不存在
-    USERALREADY_ERROR("1000004");//用户已经存在
-
+    USERNULL_ERROR("10009");//用户不存在
 
     private String code;
 

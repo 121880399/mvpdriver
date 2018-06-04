@@ -108,7 +108,7 @@ public class HttpManager {
                 .baseUrl(baseUrl)
                 .client(getClient(baseUrl,provider))
                 .addConverterFactory(new EmptyConverterFactory())
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(mProvider.jsonParseFactory());
 
         if(useRx){
                 builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());

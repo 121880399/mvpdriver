@@ -13,7 +13,7 @@ public class JsonFactory {
         if(jsonUtils==null){
             synchronized (JsonFactory.class){
                 if(jsonUtils==null){
-                    jsonUtils=new GsonUtils();
+                    jsonUtils=new FastJsonUtils();
                 }
             }
         }
