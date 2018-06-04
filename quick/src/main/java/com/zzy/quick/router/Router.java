@@ -197,8 +197,7 @@ public class Router {
                     callback.onNext(from,to);
                 }
 
-            }
-            if(intent!=null && from!=null){
+            }else if(intent!=null && from!=null){
                 if (options == null) {
                     if(requestCode<0){
                         from.startActivity(intent);
