@@ -69,7 +69,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> {
 
     @OnClick(R.id.tv_forgetPassword)
     public void clickForgetPassword(){
-
     }
 
 

@@ -15,7 +15,7 @@ public class AppConfig {
     public static final String DEMONSTRATION="http://39.106.250.181:8084/";
 
     //总地址
-    public static final String BASEURL = TEST;
+    public static final String BASEURL = RELEASE;
 
     //服务条款地址
     public static String SERVICEITEM = RELEASE+"/apprest/serviceitem.jsp";
