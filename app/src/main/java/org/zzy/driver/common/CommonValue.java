@@ -39,5 +39,12 @@ public class CommonValue {
     public static final int CHOOSE_END_CITY=1; //结束城市
     public static final int CHOOSE_BASE=1; //选择驻地城市
 
+    /**
+     * 用户类型 userType
+     * */
+    public static final int SIGN_CARRIER=1;//签约承运商
+    public static final int AUTHENTICATION_CARRIER=2;//认证承运商
+
+
 
 }

@@ -44,4 +44,26 @@ public class UserApi extends BaseApi{
         uploadeFile(request,fileMap,callBack);
     }
 
+    /**
+     * 获取用户信息接口
+     * */
+    public void getUserInfo(HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.USER_ACTION);
+        request.addHeader("method",RequestCenter.GET_USERINFO_METHOD);
+        doPost(request,callBack);
+    }
+
+
+    /**
+     * 获取绑定的车辆信息
+     * */
+    public void getBindVehicle(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.GET_BINDVEHICLE_METHOD);
+        request.putParams("driverId",driverId);
+        doPost(request,callBack);
+    }
+
 }

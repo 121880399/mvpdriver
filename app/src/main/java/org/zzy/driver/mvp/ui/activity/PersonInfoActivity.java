@@ -16,11 +16,14 @@ import com.linchaolong.android.imagepicker.cropper.CropImage;
 import com.linchaolong.android.imagepicker.cropper.CropImageView;
 import com.zzy.quick.image.ImageFactory;
 import com.zzy.quick.mvp.ui.BaseActivity;
+import com.zzy.quick.router.Router;
 import com.zzy.quick.utils.FileUtils;
+import com.zzy.quick.utils.SPUtils;
 import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.common.AppConfig;
+import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.common.UserAuthTypeEnunm;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
@@ -155,8 +158,13 @@ public class PersonInfoActivity extends BaseActivity<PersonInfoPresenter> {
     /**
      * @function 点击退出，清除SP中用户数据
      * */
+    @OnClick(R.id.ll_exit)
     public void clickExit(){
-
+        SPUtils.getInstance().remove(CommonValue.USERINFO);
+        SPUtils.getInstance().remove(CommonValue.VEHICLEINFO);
+        SPUtils.getInstance().remove(CommonValue.USERID);
+        Router.newIntent(this).to(LoginActivity.class).launch();
+        finish();
     }
 
     @Override
