@@ -18,7 +18,6 @@ import org.zzy.driver.utils.CharacterParser;
 import org.zzy.driver.utils.PinyinComparator;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +31,7 @@ public class ChooseCityPresenter extends BasePresenter<ChooseCityActivity> imple
         BusinessApi api=new BusinessApi();
         api.getCityList(this);
     }
+
 
     /**
      * 用服务器返回的数据来构造城市列表中需要的数据
