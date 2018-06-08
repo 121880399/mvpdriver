@@ -45,6 +45,11 @@ public class CommonValue {
     public static final int SIGN_CARRIER=1;//签约承运商
     public static final int AUTHENTICATION_CARRIER=2;//认证承运商
 
+    /**
+     * 车辆状态
+     * */
+    public static final int AUTHENTICATION_VEHICLE=2;//认证车辆
+
 
 
 }

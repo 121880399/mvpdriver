@@ -6,6 +6,7 @@ import com.zzy.quick.mvp.presenter.BasePresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
+import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
@@ -37,6 +38,40 @@ public class SellCapacityPresenter extends BasePresenter<SellCapacityFragment> i
         }
     }
 
+    /**
+     * 判断是否车辆列表中是否有车辆被选中
+     * */
+    public boolean isSelected(List<ResponseVehicle> vehicleDatas){
+        for (ResponseVehicle vehicle : vehicleDatas) {
+            if(vehicle.isSelected()){
+               return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 得到选中的车辆
+     * */
+    public ResponseVehicle getSelectedVehicle(List<ResponseVehicle> vehicleDatas){
+        for (ResponseVehicle vehicle : vehicleDatas) {
+            if(vehicle.isSelected()){
+                return vehicle;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 出售运力接口
+     * */
+    public void sellCapacity(RequestSellCapacity capacity){
+        BusinessApi api=new BusinessApi();
+        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+        api.sellCapacity(capacity,userInfo.getDriverId(),this);
+    }
+
     @Override
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.GET_VEHICLELIST_METHOD)) {
@@ -47,6 +82,9 @@ public class SellCapacityPresenter extends BasePresenter<SellCapacityFragment> i
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+        if (requestUrl.equals(RequestCenter.CAPACITY_ACTION) && method.equals(RequestCenter.SELL_TRANSE_CAPACAITY_METHOD)) {
+            getView().sellSuccess();
         }
     }
 

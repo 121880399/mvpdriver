@@ -47,10 +47,13 @@ public class UserApi extends BaseApi{
     /**
      * 获取用户信息接口
      * */
-    public void getUserInfo(HttpCallBack callBack){
+    public void getUserInfo(int userId,HttpCallBack callBack){
         HttpRequest request=new HttpRequest();
         request.addHeader("action", RequestCenter.USER_ACTION);
         request.addHeader("method",RequestCenter.GET_USERINFO_METHOD);
+        if(0!=userId){
+            request.putParams("userId",userId);
+        }
         doPost(request,callBack);
     }
 

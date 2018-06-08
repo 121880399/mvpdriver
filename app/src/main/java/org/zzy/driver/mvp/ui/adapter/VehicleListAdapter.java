@@ -2,6 +2,7 @@ package org.zzy.driver.mvp.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +31,13 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     private List<ResponseVehicle> vehicleList;
     private RecyclerView mRecyclerView;
     private int mSelectedPos;//上次选中的位置
+    private String mDefaultVehicleCode;
 
-    public VehicleListAdapter(Context mContext, List<ResponseVehicle> vehicleList,RecyclerView recyclerView) {
+    public VehicleListAdapter(Context mContext, List<ResponseVehicle> vehicleList,RecyclerView recyclerView,String defaultVehicleCode) {
         this.mContext = mContext;
         this.vehicleList = vehicleList;
         mRecyclerView=recyclerView;
+        mDefaultVehicleCode=defaultVehicleCode;
     }
 
     @Override
@@ -47,6 +50,10 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
     @Override
     public void onBindViewHolder(VehicleListHolder holder, final int position) {
         final ResponseVehicle vehicle = vehicleList.get(position);
+        if(TextUtils.equals(mDefaultVehicleCode,vehicle.getCode())){
+            mSelectedPos=position;
+            vehicle.setSelected(true);
+        }
         holder.tvVehicleCode.setText(vehicle.getCode());
         holder.tvVehicleType.setText(vehicle.getVehicle_type());
         holder.ivSelect.setSelected(vehicle.isSelected());
@@ -55,17 +62,18 @@ public class VehicleListAdapter extends RecyclerView.Adapter<VehicleListAdapter.
             public void onClick(View v) {
                 VehicleListHolder vehicleListHolder = (VehicleListHolder) mRecyclerView.findViewHolderForLayoutPosition(mSelectedPos);
                 if(vehicleListHolder!=null){//还在屏幕里
+                    //上一个Item的勾选恢复
                     vehicleListHolder.ivSelect.setSelected(false);
                 }else{
                     //一些极端情况，holder被缓存在Recycler的cacheView里，
                     //此时拿不到ViewHolder，但是也不会回调onBindViewHolder方法。所以add一个异常处理
                     notifyItemChanged(mSelectedPos);
                 }
-                //上一个item的勾选状态恢复
+                //上一个item的数据恢复
                 vehicleList.get(mSelectedPos).setSelected(false);
                 //设置新item的勾选状态
                 vehicleList.get(position).setSelected(true);
-                vehicleListHolder.ivSelect.setSelected(true);
+                v.setSelected(true);
                 mSelectedPos=position;
             }
         });

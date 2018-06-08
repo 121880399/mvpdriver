@@ -163,6 +163,7 @@ public class PersonInfoActivity extends BaseActivity<PersonInfoPresenter> {
         SPUtils.getInstance().remove(CommonValue.USERINFO);
         SPUtils.getInstance().remove(CommonValue.VEHICLEINFO);
         SPUtils.getInstance().remove(CommonValue.USERID);
+        SPUtils.getInstance().remove(CommonValue.TOKENCODE);
         Router.newIntent(this).to(LoginActivity.class).launch();
         finish();
     }
