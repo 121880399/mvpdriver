@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +27,9 @@ import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
 import org.zzy.driver.mvp.presenter.SellCapacityPresenter;
 import org.zzy.driver.mvp.ui.activity.ChooseCityActivity;
+import org.zzy.driver.mvp.ui.activity.SellCapacityRecordActivity;
 import org.zzy.driver.mvp.ui.activity.VehicleManagerActivity;
+import org.zzy.driver.mvp.ui.adapter.VehicleListAdapter;
 import org.zzy.driver.utils.UserInfoUtils;
 import org.zzy.driver.utils.VehicleInfoUtils;
 import org.zzy.driver.view.CommonCalendarView;
@@ -65,7 +70,7 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
     Button btnCommit;
 
     private RequestSellCapacity mSellCapacity;
-
+    private String defaultVehicleCode;
 
 
     @Override
@@ -80,23 +85,25 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
 
     @Override
     public void initData() {
-        mSellCapacity=new RequestSellCapacity();
-        ResponseVehicle vehicle= VehicleInfoUtils.getVehicleInfo();
-        if(vehicle==null){
+        mSellCapacity = new RequestSellCapacity();
+        ResponseVehicle vehicle = VehicleInfoUtils.getVehicleInfo();
+        if (vehicle == null) {
             ToastUtils.showShort("您还没有添加车辆，请先添加车辆。");
             Router.newIntent(getActivity())
                     .to(VehicleManagerActivity.class)
                     .launch();
-        }else{
-            tvVehicleCode.setText(vehicle.getCode());
+        } else {
+            defaultVehicleCode=vehicle.getCode();
+            tvVehicleCode.setText(defaultVehicleCode);
+            tvVehicleType.setText(vehicle.getVehicle_type());
         }
     }
 
     /**
      * 选择起始城市
-     * */
+     */
     @OnClick(R.id.tv_startCity)
-    public void choiceStartCity(){
+    public void choiceStartCity() {
         Router.newIntent(getActivity())
                 .to(ChooseCityActivity.class)
                 .putInt("type", CommonValue.CHOOSE_START_CITY)
@@ -106,21 +113,21 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
 
     /**
      * 选择终点城市
-     * */
+     */
     @OnClick(R.id.tv_endCity)
-    public void choiceEndCity(){
+    public void choiceEndCity() {
         Router.newIntent(getActivity())
                 .to(ChooseCityActivity.class)
-                .putInt("type",CommonValue.CHOOSE_END_CITY)
+                .putInt("type", CommonValue.CHOOSE_END_CITY)
                 .requestCode(CommonValue.CHOOSE_END_CITY)
                 .launch();
     }
 
     /**
      * 交换起始和终点城市
-     * */
+     */
     @OnClick(R.id.iv_change)
-    public void changeCity(){
+    public void changeCity() {
         //交换数据
         String tempName = mSellCapacity.getEndName();
         String temCode = mSellCapacity.getEndCode();
@@ -135,12 +142,12 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
 
     /**
      * 选择出发时间
-     * */
+     */
     @OnClick(R.id.tv_date)
-    public void choiceStartDate(){
+    public void choiceStartDate() {
         final View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_calendar, null, true);
         CommonCalendarView calendarView = dialogView.findViewById(R.id.calendarView);
-        final AlertDialog.Builder  builder=new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(dialogView);
         final AlertDialog dialog = builder.show();
         //去掉Dialog两边的白边
@@ -182,7 +189,7 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mSellCapacity.getStartTime().isEmpty()) {
+                if (TextUtils.isEmpty(mSellCapacity.getStartTime())) {
                     ToastUtils.showShort("请选择日期");
                 } else {
                     tvStartTime.setText(mSellCapacity.getStartTime());
@@ -201,22 +208,105 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
 
     /**
      * 选择车牌号
-     * */
+     */
     @OnClick(R.id.tv_vehicleChange)
-    public void choiceVehicleNum(){
-
+    public void choiceVehicleNum() {
+        getPresenter().getVehicleList();
     }
 
     /**
      * 点击提交按钮
-     * **/
+     **/
     @OnClick(R.id.btn_commit)
-    public void clickSubmit(){
-
+    public void clickSubmit() {
+        if(verifyDate()){
+            getPresenter().sellCapacity(mSellCapacity);
+        }
     }
 
     @Override
     public void showError(String msg) {
+
+    }
+
+    /**
+     * 出售运力成功
+     * */
+    public void sellSuccess(){
+        ToastUtils.showShort("运力出售成功！");
+        Router.newIntent(getActivity()).to(SellCapacityRecordActivity.class).launch();
+    }
+
+    /**
+     * 提交前验证数据
+     * */
+    private boolean verifyDate(){
+        if(TextUtils.isEmpty(tvStartCity.getText().toString())){
+            ToastUtils.showShort("请选择起始城市!");
+            return false;
+        }else if(TextUtils.isEmpty(tvEndCity.getText().toString())){
+            ToastUtils.showShort("请选择终点城市!");
+            return false;
+        }else if(TextUtils.isEmpty(tvStartTime.getText().toString())){
+            ToastUtils.showShort("请选择出发日期");
+            return false;
+        }else if(TextUtils.isEmpty(tvVehicleCode.getText().toString())){
+            ToastUtils.showShort("请选择车辆！");
+            return false;
+        }else if(mSellCapacity.getVehicleAuthStatus()!=CommonValue.AUTHENTICATION_VEHICLE){
+            ToastUtils.showShort("该车辆未通过认证请选择其他车辆");
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * 显示车牌号列表
+     */
+    public void showVehicleList(final List<ResponseVehicle> vehicleDatas) {
+        View vehicleListView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_select_vehicle, null, true);
+        AlertDialog.Builder vehicleListBuilder=new AlertDialog.Builder(getActivity());
+        vehicleListBuilder.setView(vehicleListView);
+        RecyclerView vehicleListRv = (RecyclerView) vehicleListView.findViewById(R.id.rv_vehicleList);
+        vehicleListRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        VehicleListAdapter vehicleListAdapter = new VehicleListAdapter(getContext(), vehicleDatas, vehicleListRv,defaultVehicleCode);
+        vehicleListRv.setAdapter(vehicleListAdapter);
+
+        final AlertDialog vehicleListDialog = vehicleListBuilder.show();
+        //去掉Dialog两边的白边
+        vehicleListDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        vehicleListDialog.getWindow().setGravity(Gravity.CENTER);
+
+        TextView comfirmTv = (TextView) vehicleListView.findViewById(R.id.tv_confirm);
+        ImageView closeIv = vehicleListView.findViewById(R.id.iv_close);
+        comfirmTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isSelected=getPresenter().isSelected(vehicleDatas);//是否有选中
+                ResponseVehicle selectedVehicle=getPresenter().getSelectedVehicle(vehicleDatas);
+                if(!isSelected){
+                    ToastUtils.showShort("请选取车辆！");
+                }else{
+                    mSellCapacity.setVehiclecode(selectedVehicle.getCode());
+                    mSellCapacity.setVehicleType(selectedVehicle.getVehicle_type());
+                    mSellCapacity.setVehicleTypeCode(selectedVehicle.getVehicle_type_code());
+                    mSellCapacity.setVehicleId(selectedVehicle.getVehicle_id());
+                    mSellCapacity.setSuport40(selectedVehicle.getSupport_40gp());
+                    mSellCapacity.setVehicleAuthStatus(selectedVehicle.getAuth_status());
+                    tvVehicleCode.setText(selectedVehicle.getCode());
+                    tvVehicleType.setText(selectedVehicle.getVehicle_type());
+                }
+                vehicleListDialog.dismiss();
+            }
+        });
+        closeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vehicleListDialog.dismiss();
+            }
+        });
+
 
     }
 

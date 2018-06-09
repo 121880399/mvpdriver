@@ -18,6 +18,17 @@ public class ResponseVehicle  implements Serializable {
     private int auth_status;//认证状态
     private int status;//车辆状态
 
+    ////自定义数据
+    private boolean isSelected=false;//是否被选中,默认为未选中状态
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public int getOwner_type() {
         return owner_type;
     }

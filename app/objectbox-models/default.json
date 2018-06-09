@@ -1,0 +1,110 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:133631038184170500",
+      "lastPropertyId": "21:6904670437041978961",
+      "name": "ResponseOrder",
+      "properties": [
+        {
+          "id": "1:8389190889595534170",
+          "name": "id"
+        },
+        {
+          "id": "2:3000632608057015664",
+          "name": "capacity_apply_order_id"
+        },
+        {
+          "id": "3:6627323094319177768",
+          "name": "containerType"
+        },
+        {
+          "id": "4:5616728793054271054",
+          "name": "endTime"
+        },
+        {
+          "id": "5:6436062828205097367",
+          "name": "end_address"
+        },
+        {
+          "id": "6:185667050504186551",
+          "name": "end_contacts"
+        },
+        {
+          "id": "7:8684256928242623034",
+          "name": "end_contacts_phone"
+        },
+        {
+          "id": "8:2703654953456862916",
+          "name": "end_region"
+        },
+        {
+          "id": "9:551661078328194068",
+          "name": "end_region_code"
+        },
+        {
+          "id": "10:2191472311458381933",
+          "name": "goods_name"
+        },
+        {
+          "id": "11:6840358779629031964",
+          "name": "price"
+        },
+        {
+          "id": "12:7253961667812906335",
+          "name": "startTime"
+        },
+        {
+          "id": "13:6542738091991254305",
+          "name": "start_address"
+        },
+        {
+          "id": "14:9049420416141400050",
+          "name": "start_contacts"
+        },
+        {
+          "id": "15:5260254857000422732",
+          "name": "start_contacts_phone"
+        },
+        {
+          "id": "16:2950586338927641005",
+          "name": "start_region"
+        },
+        {
+          "id": "17:6346785730333712834",
+          "name": "start_region_code"
+        },
+        {
+          "id": "18:160243737821451854",
+          "name": "type"
+        },
+        {
+          "id": "19:2306588928882037843",
+          "name": "distance"
+        },
+        {
+          "id": "20:4691416799582001528",
+          "name": "waybillId"
+        },
+        {
+          "id": "21:6904670437041978961",
+          "name": "waybill_group_id"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:133631038184170500",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

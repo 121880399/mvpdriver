@@ -31,6 +31,13 @@
         <activity android:name=".mvp.ui.activity.WalletActivity"/>
         <activity android:name=".mvp.ui.activity.WebViewLoadActivity"/>
         <activity android:name=".mvp.ui.activity.PersonInfoActivity"/>
+        <activity android:name=".mvp.ui.activity.ChooseCityActivity"/>
+        <activity android:name=".mvp.ui.activity.HistoryWaybillActivity"/>
+        <activity android:name=".mvp.ui.activity.QRCodeActivity"/>
+        <activity android:name=".mvp.ui.activity.RecommendActivity"/>
+        <activity android:name=".mvp.ui.activity.SellCapacityRecordActivity"/>
+        <activity android:name=".mvp.ui.activity.VehicleManagerActivity"/>
+        <activity android:name=".mvp.ui.activity.UserGuideActivity"/>
 
         <!-- ImagePicker 相关配置 -->
         <activity android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
