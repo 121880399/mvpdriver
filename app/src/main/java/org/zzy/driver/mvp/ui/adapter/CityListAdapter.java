@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AlphabetIndexer;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class CityListAdapter extends BaseAdapter {
 
     private List<CitySortData> citySortDatas;
     private Context mContext;
+    private AlphabetIndexer alphabetIndexer;
 
     public CityListAdapter(List<CitySortData> citySortDatas, Context mContext) {
         this.citySortDatas = citySortDatas;
@@ -57,7 +59,43 @@ public class CityListAdapter extends BaseAdapter {
 
         CitySortData citySortData = citySortDatas.get(position);
 
-        return null;
+        //如果位置是0，那么首先显示A
+        if(position==0){
+            viewHolder.tvCatalog.setVisibility(View.VISIBLE);
+            viewHolder.tvCatalog.setText(citySortData.getSortLetters());
+        }else{
+            //如果前面城市的Ascii码跟当前城市的Ascii码一致，说明在同一个字母目录下
+            //就不再显示字母目录，否则显示
+            if(compare(getAscii(position-1),getAscii(position))){
+                viewHolder.tvCatalog.setVisibility(View.GONE);
+            }else{
+                viewHolder.tvCatalog.setVisibility(View.VISIBLE);
+                viewHolder.tvCatalog.setText(citySortData.getSortLetters());
+            }
+        }
+
+        viewHolder.tvCityName.setText(citySortData.getName());
+
+
+        return convertView;
+    }
+
+    /**
+     * 比较前面一个城市的字母Ascii码跟当前城市的字母的Ascii码是否相等
+     * */
+    private boolean compare(int preAscii,int currentAscii){
+        if(preAscii==currentAscii){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 得到字母的Ascii码
+     * */
+    private int getAscii(int position){
+        citySortDatas.get(position).getSortLetters().charAt(0);
     }
 
     static class ViewHolder{
