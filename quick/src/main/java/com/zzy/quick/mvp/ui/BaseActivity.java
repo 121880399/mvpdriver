@@ -14,6 +14,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zzy.quick.R;
 import com.zzy.quick.mvp.presenter.IPresenter;
 import com.zzy.quick.utils.ButterKnifeUtil;
+import com.zzy.quick.utils.ToastUtils;
 import com.zzy.quick.widget.ActionBarView;
 
 import org.simple.eventbus.EventBus;
@@ -211,6 +212,8 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
         /**
          * 显示错误信息
          * */
-        public abstract  void showError(String msg);
+        public void showError(String msg){
+                ToastUtils.showShort(msg);
+        }
 
 }

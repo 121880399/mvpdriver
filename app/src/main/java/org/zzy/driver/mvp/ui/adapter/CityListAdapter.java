@@ -1,6 +1,8 @@
 package org.zzy.driver.mvp.ui.adapter;
 
 import android.content.Context;
+import android.os.Build;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +24,18 @@ public class CityListAdapter extends BaseAdapter {
 
     private List<CitySortData> citySortDatas;
     private Context mContext;
-    private AlphabetIndexer alphabetIndexer;
+    private ArrayMap<String,Integer> alphbetIndex;
 
     public CityListAdapter(List<CitySortData> citySortDatas, Context mContext) {
         this.citySortDatas = citySortDatas;
         this.mContext = mContext;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alphbetIndex=new ArrayMap<>();
+        }
+    }
+
+    public void setCitySortDatas(List<CitySortData> citySortDatas) {
+        this.citySortDatas = citySortDatas;
     }
 
     @Override
@@ -69,15 +78,25 @@ public class CityListAdapter extends BaseAdapter {
             if(compare(getAscii(position-1),getAscii(position))){
                 viewHolder.tvCatalog.setVisibility(View.GONE);
             }else{
+                alphbetIndex.put(citySortData.getSortLetters(),position);
                 viewHolder.tvCatalog.setVisibility(View.VISIBLE);
                 viewHolder.tvCatalog.setText(citySortData.getSortLetters());
             }
         }
 
         viewHolder.tvCityName.setText(citySortData.getName());
-
-
         return convertView;
+    }
+
+    /**
+     * 得到字母第一次出现的位置
+     * */
+    public int getInitialIndex(String letter){
+        if(alphbetIndex.containsKey(letter)) {
+            return alphbetIndex.get(letter);
+        }else{
+            return 0;
+        }
     }
 
     /**
@@ -95,7 +114,7 @@ public class CityListAdapter extends BaseAdapter {
      * 得到字母的Ascii码
      * */
     private int getAscii(int position){
-        citySortDatas.get(position).getSortLetters().charAt(0);
+       return  citySortDatas.get(position).getSortLetters().charAt(0);
     }
 
     static class ViewHolder{

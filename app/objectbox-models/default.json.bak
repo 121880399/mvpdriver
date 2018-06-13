@@ -94,59 +94,10 @@
         }
       ],
       "relations": []
-    },
-    {
-      "id": "2:7384380067824687780",
-      "lastPropertyId": "10:5357427250534717743",
-      "name": "CityUseHistory",
-      "properties": [
-        {
-          "id": "1:8092491422790912407",
-          "name": "id"
-        },
-        {
-          "id": "2:296944330497727917",
-          "name": "name"
-        },
-        {
-          "id": "3:9212367289209193599",
-          "name": "code"
-        },
-        {
-          "id": "4:7161744683107128720",
-          "indexId": "1:3667328862518802322",
-          "name": "createUser"
-        },
-        {
-          "id": "5:5669049439362673704",
-          "name": "updateTime"
-        },
-        {
-          "id": "6:7324683113272258879",
-          "name": "count"
-        },
-        {
-          "id": "7:9004593512102949484",
-          "name": "centerLat"
-        },
-        {
-          "id": "8:6887751895316338092",
-          "name": "centerLng"
-        },
-        {
-          "id": "9:3065930983594568729",
-          "name": "fullCityName"
-        },
-        {
-          "id": "10:5357427250534717743",
-          "name": "parentName"
-        }
-      ],
-      "relations": []
     }
   ],
-  "lastEntityId": "2:7384380067824687780",
-  "lastIndexId": "1:3667328862518802322",
+  "lastEntityId": "1:133631038184170500",
+  "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

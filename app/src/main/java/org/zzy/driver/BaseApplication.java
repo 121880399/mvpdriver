@@ -9,7 +9,8 @@ import com.zzy.quick.net.RequestHandler;
 import com.zzy.quick.utils.Utils;
 import com.zzy.quick.utils.log.LogFactory;
 
-import org.zzy.driver.mvp.model.bean.response.MyObjectBox;
+
+import org.zzy.driver.mvp.model.bean.MyObjectBox;
 
 import io.objectbox.BoxStore;
 import okhttp3.CookieJar;

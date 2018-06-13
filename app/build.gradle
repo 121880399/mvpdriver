@@ -28,7 +28,7 @@ android {
         //测试环境
         check{
             buildConfigField "int","ENV_TYPE","1"
-            buildConfigField "String","SERVER_URL",'"http://192.168.1.220:8084"'
+            buildConfigField "String","SERVER_URL",'"http://192.168.1.60:8220"'
             applicationId 'org.zzy.driver.check'
             manifestPlaceholders=[
                     app_name:"测-司机",
