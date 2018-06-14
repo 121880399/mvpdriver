@@ -50,6 +50,14 @@ public class CommonValue {
      * */
     public static final int AUTHENTICATION_VEHICLE=2;//认证车辆
 
+    /**
+     * 司机身份认证状态 及 资格认证状态
+     * **/
+    public static final int UNCOMMITTED=0;//未提交
+    public static final int WAITCONFIRM=1;//待审核
+    public static final int CHECKPASS=2;//审核通过
+    public static final int DISQUALIFICATION=3;//审核不通过
+
 
 
 }

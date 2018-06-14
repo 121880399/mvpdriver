@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
+import com.zzy.quick.utils.KeyboardUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.mvp.model.bean.custom.CitySortData;
@@ -122,7 +123,7 @@ public class ChooseCityActivity extends BaseActivity<ChooseCityPresenter> implem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         CityUseHistory cityhistory=null;
-        switch (view.getId()){
+        switch (parent.getId()){
             case R.id.lv_cityList:
                 //如果用户点击的是城市列表的item，则position是从1开始的，因为listview添加了header,所以取数据的时候要减1
                 cityhistory=new CityUseHistory();
@@ -150,12 +151,17 @@ public class ChooseCityActivity extends BaseActivity<ChooseCityPresenter> implem
         Intent intent = getIntent();
         intent.putExtra("city",cityhistory);
         setResult(RESULT_OK,intent);
+        KeyboardUtils.hideSoftInput(this);
         finish();
     }
 
 
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //返回的时候关闭软键盘
+        KeyboardUtils.hideSoftInput(this);
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

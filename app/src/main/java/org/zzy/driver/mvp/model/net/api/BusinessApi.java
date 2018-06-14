@@ -15,6 +15,23 @@ import org.zzy.driver.utils.MD5Util;
 
 public class BusinessApi  extends BaseApi{
 
+    private static BusinessApi api;
+
+    public static BusinessApi getInstance(){
+        if(api==null){
+            synchronized (BusinessApi.class){
+                if(api==null){
+                    api=new BusinessApi();
+                }
+            }
+        }
+        return  api;
+    }
+
+    private BusinessApi(){
+
+    }
+
     /**
      * 抢单接口
      * */
@@ -53,7 +70,7 @@ public class BusinessApi  extends BaseApi{
         request.putParams("vehiclecode", capacity.getVehiclecode());
         request.putParams("startRegionCode", capacity.getStartCode());
         request.putParams("endRegionCode", capacity.getEndCode());
-        request.putParams("startTime",  TimeUtils.getCurrentFormateTime2OfDate(capacity.getStartTime()));
+        request.putParams("startTime",  TimeUtils.strToDate(capacity.getStartTime()));
         request.putParams("vehicleType", capacity.getVehicleTypeCode());
         request.putParams("suport40", capacity.getSuport40());
         doPost(request,callBack);
@@ -67,6 +84,17 @@ public class BusinessApi  extends BaseApi{
         HttpRequest request=new HttpRequest();
         request.addHeader("action", RequestCenter.USER_ACTION);
         request.addHeader("method", RequestCenter.GET_CITY_LIST_METHOD);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 获取钱包信息
+     * */
+    public void getWalletInfo(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_WALLETINFO_METHOD);
+        request.putParams("driverId", driverId);
         doPost(request,callBack);
     }
 }

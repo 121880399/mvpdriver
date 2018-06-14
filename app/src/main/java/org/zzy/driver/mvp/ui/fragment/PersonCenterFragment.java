@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.zzy.quick.image.ImageFactory;
 import com.zzy.quick.mvp.ui.BaseFragment;
 import com.zzy.quick.router.Router;
-import com.zzy.quick.utils.StatusBarUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.common.AppConfig;
@@ -22,7 +21,7 @@ import org.zzy.driver.mvp.ui.activity.QRCodeActivity;
 import org.zzy.driver.mvp.ui.activity.RecommendActivity;
 import org.zzy.driver.mvp.ui.activity.SellCapacityRecordActivity;
 import org.zzy.driver.mvp.ui.activity.VehicleManagerActivity;
-import org.zzy.driver.mvp.ui.activity.WalletActivity;
+import org.zzy.driver.mvp.ui.activity.wallet.WalletActivity;
 import org.zzy.driver.mvp.ui.activity.WebViewLoadActivity;
 import org.zzy.driver.utils.QrUtils;
 import org.zzy.driver.utils.UserInfoUtils;
@@ -67,7 +66,6 @@ public class PersonCenterFragment extends BaseFragment<PersonCenterPresenter> {
     @Override
     public void initView(View view) {
         super.initView(view);
-        StatusBarUtils.setImage(getActivity());
         //初始化二维码
         QrUtils.createQRImage(String.valueOf(UserInfoUtils.getUserInfo().getId()), getActivity(),ivCode);
         showAvatar();

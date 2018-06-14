@@ -1860,4 +1860,22 @@ public final class TimeUtils {
         return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * 字符串转换成日期
+     *
+     * @param str
+     * @return date
+     */
+    public static Date strToDate(String str) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = format.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
 }

@@ -50,7 +50,7 @@ public class ChooseCityPresenter extends BasePresenter<ChooseCityActivity> imple
      * 得到所有城市列表
      * */
     public void getCityList(){
-        BusinessApi api=new BusinessApi();
+        BusinessApi api=BusinessApi.getInstance();
         api.getCityList(this);
     }
 
