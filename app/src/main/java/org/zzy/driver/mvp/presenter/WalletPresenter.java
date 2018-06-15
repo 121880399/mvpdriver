@@ -19,6 +19,10 @@ import org.zzy.driver.utils.VehicleInfoUtils;
  */
 
 public class WalletPresenter extends BasePresenter<WalletActivity> implements HttpCallBack {
+    public  static final int MYBANKCARD=1;//我的银行卡
+    public  static final int WITHDRAW=2;//提现
+
+
 
     private boolean isBoundBank;
 
@@ -30,28 +34,49 @@ public class WalletPresenter extends BasePresenter<WalletActivity> implements Ht
         api.getWalletInfo(VehicleInfoUtils.getVehicleInfo().getDriver_id(), this);
     }
 
+    /**
+     * 支付设置验证
+     * */
+    public void paySettingVerify(){
+        if(verifyUserStatus()){
+            if(UserInfoUtils.getUserInfo().getHasPayPassword()==0){
+                getView().promptSettingPassword();
+            } else{
+                getView().goPaySetting();
+            }
+        }
+    }
+
 
     /**
-     * 进入我的银行卡和提现，进行权限验证
+     * 进入我的银行卡,提现，进行权限验证
      */
-    public boolean verifyData(int type) {
-        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
-        if (userInfo.getIdentStatus() != CommonValue.CHECKPASS && userInfo.getQuaStatus() != CommonValue.CHECKPASS) {
-            getView().showError("用户资料未完善不能进行此操作！");
-            return false;
-        } else {
+    public void verifyData(int type) {
+        if (verifyUserStatus()) {
             //是否绑卡，如果没绑卡不能进入我的银行卡界面，也不能提现
             if (isBoundBank) {
-                if (type == 1) {
+                if (type == MYBANKCARD) {
                     getView().goMyBankCard();
-                } else if (type == 2) {
+                } else if (type == WITHDRAW) {
                     getView().goWithdraw();
                 }
             } else {
                 getView().promptBoundCard();
             }
         }
-        return true;
+    }
+
+    /**
+     * 验证用户当前状态
+     * */
+    private boolean verifyUserStatus(){
+        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+        if (userInfo.getIdentStatus() != CommonValue.CHECKPASS && userInfo.getQuaStatus() != CommonValue.CHECKPASS) {
+            getView().showError("用户资料未完善不能进行此操作！");
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override

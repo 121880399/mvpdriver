@@ -59,6 +59,7 @@ ext {
             "recycleView-adapter"      : "com.zhy:base-rvadapter:3.0.3",
             "overscroll"               : "me.everything:overscroll-decor-android:1.0.3",
             "multitype"                : "me.drakeet.multitype:multitype:3.1.0",
+            "gridPasswordView"         : "com.jungly:gridPasswordView:0.3",
 
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

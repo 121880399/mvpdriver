@@ -2,6 +2,7 @@ package org.zzy.driver.mvp.ui.activity.wallet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -77,7 +78,7 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
      * */
     @OnClick(R.id.rl_mycard)
     public void clickMyCard(){
-
+        getPresenter().verifyData(WalletPresenter.MYBANKCARD);
     }
 
     /**
@@ -93,7 +94,17 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
      * */
     @OnClick(R.id.rl_paySetting)
     public void clickPaySetting(){
+        getPresenter().paySettingVerify();
+    }
 
+    /**
+     * 点击收入明细
+     * */
+    @OnClick(R.id.tv_incomeList)
+    public void clickPayList(){
+        Router.newIntent(this)
+                .to(IncomeListActivity.class)
+                .launch();
     }
 
     /**
@@ -101,7 +112,7 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
      * */
     public void promptBoundCard(){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
+        final AlertDialog alertDialog = builder.show();
         builder.setTitle("绑定银行卡")
                 .setMessage("您还未绑定银行卡，是否绑定？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -118,6 +129,7 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
                         alertDialog.dismiss();
                     }
                 });
+        alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
 
@@ -136,6 +148,38 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
     public void goWithdraw() {
         Router.newIntent(this)
                 .to(WithdrawActivity.class)
+                .launch();
+    }
+
+
+    /**
+     * 提示设置密码
+     * */
+    public void promptSettingPassword() {
+        AlertDialog.Builder builder =new AlertDialog.Builder(this);
+        final AlertDialog alertDialog = builder.show();
+        builder.setTitle("设置支付密码")
+                .setMessage("您还未设置支付密码，是否设置？")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Router.newIntent(WalletActivity.this)
+                                .to(SetPayPasswordActivity.class)
+                                .launch();
+                    }
+                })
+                .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.dismiss();
+                    }
+                });
+        alertDialog.getWindow().setGravity(Gravity.CENTER);
+    }
+
+    public void goPaySetting() {
+        Router.newIntent(this)
+                .to(PaySettingActivity.class)
                 .launch();
     }
 }

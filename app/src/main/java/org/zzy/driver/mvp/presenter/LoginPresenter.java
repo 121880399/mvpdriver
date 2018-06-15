@@ -25,11 +25,10 @@ import okhttp3.Response;
 
 public class LoginPresenter extends BasePresenter<LoginActivity> implements HttpCallBack {
 
-    private UserApi userApi = new UserApi();
 
     public void login(String userName, String password) {
         //发起登录请求
-        userApi.login(userName, password, this);
+        UserApi.newInstance().login(userName, password, this);
     }
 
 
@@ -48,10 +47,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                     if (userInfo != null) {
                         SPUtils.getInstance().put(CommonValue.USERINFO, userInfo);
                         SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
-                        userApi.getUserInfo(userInfo.getId(), this);
+                        UserApi.newInstance().getUserInfo(userInfo.getId(), this);
                     } else {
                         //这里为兼容微服务和老版本的接口
-                        userApi.getUserInfo(0, this);
+                        UserApi.newInstance().getUserInfo(0, this);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -66,9 +65,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                 SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
                 //如果是签约承运商或者是认证承运商 就通过公司id查找车辆信息
                 if (userInfo.getUserType() == CommonValue.SIGN_CARRIER || userInfo.getUserType() == CommonValue.AUTHENTICATION_CARRIER) {
-                    userApi.getBindVehicle(userInfo.getCompany_id(), this);
+                    UserApi.newInstance().getBindVehicle(userInfo.getCompany_id(), this);
                 } else {
-                    userApi.getBindVehicle(userInfo.getDriverId(), this);
+                    UserApi.newInstance().getBindVehicle(userInfo.getDriverId(), this);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

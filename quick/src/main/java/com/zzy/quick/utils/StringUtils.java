@@ -162,4 +162,20 @@ public class StringUtils {
         }
         return d;
     }
+
+    /**
+     * 银行卡替换，保留后四位
+     *
+     * 如果银行卡号为空 或者 null ,返回null ；否则，返回替换后的字符串；
+     *
+     * @param bankCard 银行卡号
+     * @return
+     */
+    public static String bankCardReplaceWithStar(String bankCard) {
+        if (bankCard == null || bankCard.isEmpty() ) {
+            return "";
+        } else {
+            return bankCard.replaceAll("(?<=\\d{0})\\d(?=\\d{4})","*");
+        }
+    }
 }

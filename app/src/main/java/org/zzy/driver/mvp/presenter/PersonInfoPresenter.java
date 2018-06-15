@@ -23,8 +23,7 @@ import java.io.File;
 public class PersonInfoPresenter extends BasePresenter<PersonInfoActivity> implements HttpCallBack {
 
     public void setUserHead(File file){
-        UserApi userApi=new UserApi();
-        userApi.changeAvatar(file, UserInfoUtils.getUserInfo().getId(),this);
+        UserApi.newInstance().changeAvatar(file, UserInfoUtils.getUserInfo().getId(),this);
     }
 
     @Override
