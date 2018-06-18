@@ -90,6 +90,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
     public void doFaild(HttpResult error, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.LOGIN_METHOD)) {
             ToastUtils.showShort(error.getErrorMsg());
+
         }
     }
 }
