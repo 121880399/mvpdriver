@@ -62,7 +62,7 @@ public class FindCargoPresenter extends BasePresenter<FindCargoFragment> impleme
             //如果通过审核
             if (UserInfoUtils.getUserInfo().getIdentStatus() == 2 && UserInfoUtils.getUserInfo().getQuaStatus() == 2) {
                 accepterOrder=order;
-                BusinessApi api=new BusinessApi();
+                BusinessApi api=BusinessApi.getInstance();
                 api.acceptOrder(UserInfoUtils.getUserInfo().getDriverId()
                         ,Integer.valueOf(order.getCapacity_apply_order_id())
                         ,Integer.valueOf(order.getWaybill_group_id())

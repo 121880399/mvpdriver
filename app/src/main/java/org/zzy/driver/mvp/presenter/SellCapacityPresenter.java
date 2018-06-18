@@ -28,7 +28,7 @@ public class SellCapacityPresenter extends BasePresenter<SellCapacityFragment> i
      * @function 得到车辆列表
      * */
     public void getVehicleList(){
-        BusinessApi api=new BusinessApi();
+        BusinessApi api=BusinessApi.getInstance();
         ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
         int userType = userInfo.getUserType();
         if(userType== CommonValue.SIGN_CARRIER||userType==CommonValue.AUTHENTICATION_CARRIER){
@@ -67,7 +67,7 @@ public class SellCapacityPresenter extends BasePresenter<SellCapacityFragment> i
      * 出售运力接口
      * */
     public void sellCapacity(RequestSellCapacity capacity){
-        BusinessApi api=new BusinessApi();
+        BusinessApi api=BusinessApi.getInstance();
         ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
         api.sellCapacity(capacity,userInfo.getDriverId(),this);
     }

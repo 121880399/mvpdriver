@@ -1,5 +1,7 @@
 package org.zzy.driver.common;
 
+import org.zzy.driver.BuildConfig;
+
 /**
  * Created by zhou on 2018/4/4.
  */
@@ -18,7 +20,7 @@ public class AppConfig {
     public static final String DEMONSTRATION="http://39.106.250.181:8084/";
 
     //总地址
-    public static final String BASEURL = RELEASE;
+    public static final String BASEURL = BuildConfig.SERVER_URL;
 
     //服务条款地址
     public static String SERVICEITEM = RELEASE+"/apprest/serviceitem.jsp";

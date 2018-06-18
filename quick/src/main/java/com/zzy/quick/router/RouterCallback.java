@@ -1,6 +1,7 @@
 package com.zzy.quick.router;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 /**
  * 项目名称: QuickMvp
@@ -13,6 +14,8 @@ public interface RouterCallback {
     void onBefore(Activity from,Class<?> to);
 
     void onNext(Activity from,Class<?> to);
+
+    void onNext(Fragment from, Class<?> to);
 
     void onError(Activity from,Class<?> to,Throwable throwable);
 

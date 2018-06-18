@@ -1,5 +1,6 @@
 package org.zzy.driver.mvp.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.common.CommonValue;
+import org.zzy.driver.mvp.model.bean.custom.CityUseHistory;
 import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
 import org.zzy.driver.mvp.presenter.SellCapacityPresenter;
@@ -104,11 +106,11 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
      */
     @OnClick(R.id.tv_startCity)
     public void choiceStartCity() {
-        Router.newIntent(getActivity())
+        Router.newIntent(this)
                 .to(ChooseCityActivity.class)
-                .putInt("type", CommonValue.CHOOSE_START_CITY)
+                .putString("title", "选择起始城市")
                 .requestCode(CommonValue.CHOOSE_START_CITY)
-                .launch();
+                .fragmentLaunch();
     }
 
     /**
@@ -116,11 +118,11 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
      */
     @OnClick(R.id.tv_endCity)
     public void choiceEndCity() {
-        Router.newIntent(getActivity())
+        Router.newIntent(this)
                 .to(ChooseCityActivity.class)
-                .putInt("type", CommonValue.CHOOSE_END_CITY)
+                .putString("title","选择终点城市")
                 .requestCode(CommonValue.CHOOSE_END_CITY)
-                .launch();
+                .fragmentLaunch();
     }
 
     /**
@@ -310,4 +312,25 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==getActivity().RESULT_OK){
+            switch (requestCode){
+                case CommonValue.CHOOSE_START_CITY:
+                    CityUseHistory startCity= (CityUseHistory) data.getSerializableExtra("city");
+                    mSellCapacity.setStartName(startCity.getName());
+                    mSellCapacity.setStartCode(startCity.getCode());
+                    tvStartCity.setText(startCity.getName());
+                    break;
+                case CommonValue.CHOOSE_END_CITY:
+                    CityUseHistory endCity= (CityUseHistory) data.getSerializableExtra("city");
+                    mSellCapacity.setEndName(endCity.getName());
+                    mSellCapacity.setEndCode(endCity.getCode());
+                    tvEndCity.setText(endCity.getName());
+                    break;
+            }
+        }
+
+    }
 }

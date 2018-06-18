@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 
 android {
+
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
@@ -11,7 +12,54 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         multiDexEnabled true
+        flavorDimensions "versionCode"
     }
+
+    signingConfigs{
+        release{
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile rootProject.file(KEYSTORE_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
+
+    productFlavors{
+        //测试环境
+        check{
+            buildConfigField "int","ENV_TYPE","1"
+            buildConfigField "String","SERVER_URL",'"http://192.168.1.60:8220"'
+            applicationId 'org.zzy.driver.check'
+            manifestPlaceholders=[
+                    app_name:"测-司机",
+                    app_icon:"@mipmap/ic_launcher_test"
+            ]
+        }
+
+        //演示环境
+        demon{
+            buildConfigField "int","ENV_TYPE","2"
+            buildConfigField "String","SERVER_URL",'"http://39.106.250.181:8084"'
+            applicationId 'org.zzy.driver.demon'
+            manifestPlaceholders=[
+                    app_name: "演-司机",
+                    app_icon: "@mipmap/ic_launcher_demon"
+            ]
+        }
+
+        //生产环境
+        product{
+            buildConfigField "int","ENV_TYPE","3"
+            buildConfigField "String","SERVER_URL",'"http://www.unitransdata.com:8088"'
+            applicationId 'org.zzy.driver.product'
+            manifestPlaceholders=[
+                    app_name: "司机",
+                    app_icon: "@mipmap/ic_launcher"
+            ]
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,8 +74,10 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-apt"]
     compile project(':quick')
     //数据库
-    compile rootProject.ext.dependencies["object-box"]
+    compile (rootProject.ext.dependencies["object-box"])
     releaseImplementation rootProject.ext.dependencies["object-browser"]
     annotationProcessor  rootProject.ext.dependencies["object-processor"]
+    //自定义密码输入框
+    compile rootProject.ext.dependencies["gridPasswordView"]
 }
 apply plugin: 'io.objectbox'

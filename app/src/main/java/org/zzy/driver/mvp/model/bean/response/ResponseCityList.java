@@ -1,5 +1,7 @@
 package org.zzy.driver.mvp.model.bean.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by zhou on 2018/6/8.
  */
@@ -29,6 +31,12 @@ public class ResponseCityList {
     private String fullName;
     private int id;
     private double centerLat;
+    /**
+     * centerLng : 116.407526
+     * centerLat : 39.90403
+     */
+
+
 
     public double getCenterLng() {
         return centerLng;
@@ -109,4 +117,5 @@ public class ResponseCityList {
     public void setCenterLat(double centerLat) {
         this.centerLat = centerLat;
     }
+
 }

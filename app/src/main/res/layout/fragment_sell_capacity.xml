@@ -189,6 +189,7 @@
                                     android:layout_marginTop="3dp"
                                     android:background="@null"
                                     android:hint="请输入价格"
+                                    android:inputType="numberDecimal"
                                     android:textColor="@color/color_orange"
                                     android:textSize="@dimen/textsize_18" />
                             </LinearLayout>

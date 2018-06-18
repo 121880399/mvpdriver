@@ -2,6 +2,7 @@ package org.zzy.driver.mvp.model.net.api;
 
 import com.zzy.quick.utils.TimeUtils;
 
+import org.zzy.driver.mvp.model.bean.request.RequestAddCard;
 import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpRequest;
@@ -14,6 +15,23 @@ import org.zzy.driver.utils.MD5Util;
  */
 
 public class BusinessApi  extends BaseApi{
+
+    private static BusinessApi api;
+
+    public static BusinessApi getInstance(){
+        if(api==null){
+            synchronized (BusinessApi.class){
+                if(api==null){
+                    api=new BusinessApi();
+                }
+            }
+        }
+        return  api;
+    }
+
+    private BusinessApi(){
+
+    }
 
     /**
      * 抢单接口
@@ -53,7 +71,7 @@ public class BusinessApi  extends BaseApi{
         request.putParams("vehiclecode", capacity.getVehiclecode());
         request.putParams("startRegionCode", capacity.getStartCode());
         request.putParams("endRegionCode", capacity.getEndCode());
-        request.putParams("startTime",  TimeUtils.getCurrentFormateTime2OfDate(capacity.getStartTime()));
+        request.putParams("startTime",  TimeUtils.strToDate(capacity.getStartTime()));
         request.putParams("vehicleType", capacity.getVehicleTypeCode());
         request.putParams("suport40", capacity.getSuport40());
         doPost(request,callBack);
@@ -67,6 +85,91 @@ public class BusinessApi  extends BaseApi{
         HttpRequest request=new HttpRequest();
         request.addHeader("action", RequestCenter.USER_ACTION);
         request.addHeader("method", RequestCenter.GET_CITY_LIST_METHOD);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 获取钱包信息
+     * */
+    public void getWalletInfo(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_WALLETINFO_METHOD);
+        request.putParams("driverId", driverId);
+        doPost(request,callBack);
+    }
+
+    /***
+     * 获取银行信息
+     *
+     */
+
+    public void getBankRelative(String bankCardNum,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_BANKRELATIVE_METHOD);
+        request.putParams("bankCardNum", bankCardNum);
+        doPost(request,callBack);
+    }
+
+    /***
+     *绑卡获取验证码接口
+     */
+    public void getBindSms(String phone,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_BINDSMS_METHOD);
+        request.putParams("phone", phone);
+        doPost(request,callBack);
+    }
+
+    /***
+     * 添加银行卡接口
+     */
+    public void bindingBankCard(int driverId,RequestAddCard addcard, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.BINDING_BANKCARD_METHOD);
+        request.putParams("driverId", driverId);
+        request.putParams("userName", addcard.getUserName());
+        request.putParams("bankCardNum", addcard.getBankCardNum());
+        request.putParams("bankCardName", addcard.getBankCardName());
+        request.putParams("bankCardCode", addcard.getBankCardCode());
+        request.putParams("verifyCode", addcard.getVerifyCode());
+        doPost(request,callBack);
+    }
+
+    /***
+     * 获取绑定银行卡
+     */
+    public void getBindingBankCard(int driverId, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_BINDINGBANKCARD_METHOD);
+        request.putParams("driverId", driverId);
+        doPost(request,callBack);
+    }
+
+    /***
+     * 解绑银行卡
+     */
+    public void unBindingBankCard(int driverId,String payPassword, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.UNBINDING_BANKCARD_METHOD);
+        request.putParams("driverId", driverId);
+        request.putParams("payPassword", payPassword);
+        doPost(request,callBack);
+    }
+
+    /***
+     *获取设置密码验证码
+     */
+    public void getPaySms(String phone,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method", RequestCenter.GET_PAYSMS_METHOD);
+        request.putParams("phone", phone);
         doPost(request,callBack);
     }
 }

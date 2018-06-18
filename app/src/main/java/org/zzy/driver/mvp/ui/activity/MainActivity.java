@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
+import com.zzy.quick.utils.StatusBarUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.mvp.ui.fragment.FindCargoFragment;
@@ -30,6 +31,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        StatusBarUtils.setImage(this);
     }
 
     @Override

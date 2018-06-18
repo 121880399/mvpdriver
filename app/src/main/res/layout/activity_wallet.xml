@@ -25,13 +25,12 @@
                 android:src="@drawable/ic_newback"
                 android:layout_marginLeft="20dp"
                 android:layout_centerVertical="true"
-                android:onClick="onViewClick"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="钱包"
-                android:textSize="@dimen/textsize_16"
+                android:textSize="@dimen/textsize_20"
                 android:textColor="@color/color_white"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -45,16 +44,14 @@
                 android:textColor="@color/color_white"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:onClick="onViewClick"
                 android:layout_centerVertical="true"
                 />
 
         </RelativeLayout>
         <TextView
-            android:id="@+id/tv_rmb"
+            android:id="@+id/tv_generalIncome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(walletInfo.generalIncome)}"
             android:textSize="@dimen/textsize_45"
             android:layout_marginLeft="5dp"
             android:textColor="@color/color_white"
@@ -66,8 +63,8 @@
             android:text="¥"
             android:textSize="@dimen/textsize_20"
             android:textColor="@color/color_white"
-            android:layout_toLeftOf="@id/tv_rmb"
-            android:layout_alignBottom="@id/tv_rmb"
+            android:layout_toLeftOf="@id/tv_generalIncome"
+            android:layout_alignBottom="@id/tv_generalIncome"
             android:layout_marginBottom="8dp"
             />
         <LinearLayout
@@ -93,10 +90,9 @@
                     android:layout_marginTop="15dp"
                     />
                 <TextView
-                    android:id="@+id/tv_income"
+                    android:id="@+id/tv_waitConfirmedIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(walletInfo.waitConfirmedIncome)}"
                     android:textColor="#DC8D07"
                     android:textSize="@dimen/textsize_16"
                     android:layout_marginBottom="10dp"
@@ -127,10 +123,9 @@
                     />
 
                 <TextView
-                    android:id="@+id/tv_bank"
+                    android:id="@+id/tv_withdrawAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{String.valueOf(walletInfo.withdrawAccount)}"
                     android:textSize="@dimen/textsize_16"
                     android:textColor="#DC8D07"
                     android:layout_marginBottom="10dp"
@@ -204,7 +199,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{walletInfo.hasPayPassword==0 ? @string/text_paypassword:@string/text_none}"
             android:textColor="@color/color_hint"
             android:layout_toLeftOf="@id/iv_right"
             android:layout_marginRight="5dp"
@@ -222,7 +216,6 @@
         android:textColor="@color/color_white"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="onViewClick"
         android:background="@drawable/shape_button_orange_circle"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
