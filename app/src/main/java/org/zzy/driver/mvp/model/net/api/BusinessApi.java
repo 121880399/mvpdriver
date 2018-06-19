@@ -88,6 +88,7 @@ public class BusinessApi  extends BaseApi{
         doPost(request,callBack);
     }
 
+    ///////////////钱包接口////////////////////
     /**
      * 获取钱包信息
      * */
@@ -172,4 +173,53 @@ public class BusinessApi  extends BaseApi{
         request.putParams("phone", phone);
         doPost(request,callBack);
     }
+
+    /**
+     * 钱包验证支付密码接口
+     * */
+    public void checkPayPassword(String password,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.CHECK_PAYPASSWORD_METHOD);
+        request.putParams("payPassword",MD5Util.md5Encode(MD5Util.md5Encode(password)));
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void setPayPassword(String idCard,String password,String verifyCode,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.SET_PAYPASSWORD_METHOD);
+        request.putParams("password",MD5Util.md5Encode(MD5Util.md5Encode(password)));
+        request.putParams("idCard",idCard);
+        request.putParams("verifyCode",verifyCode);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void getAccountBalanceList(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.GET_ACCOUNTBALANCELIST_METHOD);
+        request.putParams("driverId",driverId);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void changePayPassword(String oldPassword,String newPassword,String verifyCode,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.CHANGE_PAYPASSWORD_METHOD);
+        request.putParams("oldPassword",oldPassword);
+        request.putParams("newPassword",newPassword);
+        request.putParams("verifyCode",verifyCode);
+        doPost(request,callBack);
+    }
+
 }

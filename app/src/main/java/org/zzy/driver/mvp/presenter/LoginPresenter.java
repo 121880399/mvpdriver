@@ -16,8 +16,6 @@ import org.zzy.driver.mvp.model.net.RequestCenter;
 import org.zzy.driver.mvp.model.net.api.UserApi;
 import org.zzy.driver.mvp.ui.activity.LoginActivity;
 
-import okhttp3.Response;
-
 /**
  * @function LoginPresenter用来写登录的业务逻辑
  * Created by zhou on 2018/4/4.
@@ -28,7 +26,7 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
 
     public void login(String userName, String password) {
         //发起登录请求
-        UserApi.newInstance().login(userName, password, this);
+        UserApi.getInstance().login(userName, password, this);
     }
 
 
@@ -47,10 +45,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                     if (userInfo != null) {
                         SPUtils.getInstance().put(CommonValue.USERINFO, userInfo);
                         SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
-                        UserApi.newInstance().getUserInfo(userInfo.getId(), this);
+                        UserApi.getInstance().getUserInfo(userInfo.getId(), this);
                     } else {
                         //这里为兼容微服务和老版本的接口
-                        UserApi.newInstance().getUserInfo(0, this);
+                        UserApi.getInstance().getUserInfo(0, this);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -65,9 +63,9 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                 SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
                 //如果是签约承运商或者是认证承运商 就通过公司id查找车辆信息
                 if (userInfo.getUserType() == CommonValue.SIGN_CARRIER || userInfo.getUserType() == CommonValue.AUTHENTICATION_CARRIER) {
-                    UserApi.newInstance().getBindVehicle(userInfo.getCompany_id(), this);
+                    UserApi.getInstance().getBindVehicle(userInfo.getCompany_id(), this);
                 } else {
-                    UserApi.newInstance().getBindVehicle(userInfo.getDriverId(), this);
+                    UserApi.getInstance().getBindVehicle(userInfo.getDriverId(), this);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

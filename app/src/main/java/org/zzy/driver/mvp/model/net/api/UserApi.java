@@ -18,7 +18,7 @@ public class UserApi extends BaseApi{
 
     private static UserApi api;
 
-    public static UserApi newInstance(){
+    public static UserApi getInstance(){
         if(api==null){
             synchronized (UserApi.class){
                 if(api==null){
@@ -84,15 +84,6 @@ public class UserApi extends BaseApi{
         doPost(request,callBack);
     }
 
-    /**
-     * 钱包验证支付密码接口
-     * */
-    public void checkPayPassword(String password,HttpCallBack callBack){
-        HttpRequest request=new HttpRequest();
-        request.addHeader("action", RequestCenter.WALLET_ACTION);
-        request.addHeader("method",RequestCenter.CHECK_PAYPASSWORD_METHOD);
-        request.putParams("payPassword",MD5Util.md5Encode(MD5Util.md5Encode(password)));
-        doPost(request,callBack);
-    }
+
 
 }
