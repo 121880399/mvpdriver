@@ -57,7 +57,7 @@ public class NoneCardActivity extends BaseActivity<NoneCardPresenter> {
 
     public void promptSettingPassword() {
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
+
         builder.setTitle("设置支付密码")
                 .setMessage("您还未设置支付密码，是否设置？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -71,9 +71,9 @@ public class NoneCardActivity extends BaseActivity<NoneCardPresenter> {
                 .setNegativeButton("否", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 

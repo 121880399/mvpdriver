@@ -104,7 +104,6 @@ public class MyBankCardActivity extends BaseActivity<MyBankCardPresenter> implem
 
     private void showTipDialog(){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("解绑银行卡")
                 .setMessage("您确定解绑当前银行卡？")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -119,9 +118,9 @@ public class MyBankCardActivity extends BaseActivity<MyBankCardPresenter> implem
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 

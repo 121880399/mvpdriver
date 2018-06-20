@@ -152,7 +152,6 @@ public class AddCardActivity extends BaseActivity<AddCardPresenter> implements T
      * */
     public void showTip() {
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("请确认银行卡信息")
                 .setMessage("持卡人姓名:"+mAddCard.getUserName()+"\n银行卡号:"+mAddCard.getBankCardNum()+"\n发卡行:"+mAddCard.getBankCardName())
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -166,9 +165,9 @@ public class AddCardActivity extends BaseActivity<AddCardPresenter> implements T
                 .setNegativeButton("否", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 }

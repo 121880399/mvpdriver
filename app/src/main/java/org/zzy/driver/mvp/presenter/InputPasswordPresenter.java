@@ -31,6 +31,6 @@ public class InputPasswordPresenter extends BasePresenter<InputPasswordActivity>
 
     @Override
     public void doFaild(HttpResult error, String requestUrl, String method) {
-
+        getView().showError(error.getErrorMsg());
     }
 }

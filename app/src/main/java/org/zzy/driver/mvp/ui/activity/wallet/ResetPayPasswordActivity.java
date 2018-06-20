@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 钱包-重置支付密码界面
  * Created by zhou on 2018/6/15.
  */
 
@@ -107,7 +108,7 @@ public class ResetPayPasswordActivity extends BaseActivity<ResetPayPasswordPrese
     /**
      * 点击清除确认密码
      * */
-    @OnClick(R.id.et_confirmPassword)
+    @OnClick(R.id.iv_clearConfirmPassword)
     public void clickClearConfirmPassword(){
         etConfirmPassword.setText("");
     }

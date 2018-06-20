@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar"></include>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sv_VehileList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <org.zzy.driver.view.NoScrollListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:adapter="@{vehicleAdapter}">
+            </org.zzy.driver.view.NoScrollListView>
+
+            <LinearLayout
+                android:id="@+id/ll_setvehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/btn_bindVehicle"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/color_orange"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="设为当前"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/textsize_18" />
+
+                <Button
+                    android:id="@+id/btn_deleteVehicle"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/shape_button_gray"
+                    android:onClick="onViewClick"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:text="删除"
+                    android:textColor="@color/color_gray"
+                    android:textSize="@dimen/textsize_18" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/btn_addVehicle"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_button_orange_circle"
+        android:text="添加车辆"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/textsize_18" />
+</LinearLayout>

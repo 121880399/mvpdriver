@@ -47,16 +47,6 @@ public class BusinessApi  extends BaseApi{
         doPost(request,callBack);
     }
 
-    /**
-     * 得到车辆列表接口
-     * */
-    public void getVehicleList(int driverId,HttpCallBack callBack){
-        HttpRequest request=new HttpRequest();
-        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
-        request.addHeader("method", RequestCenter.GET_VEHICLELIST_METHOD);
-        request.putParams("driverId",driverId);
-        doPost(request,callBack);
-    }
 
     /**
      * 出售运力接口
@@ -159,7 +149,7 @@ public class BusinessApi  extends BaseApi{
         request.addHeader("action", RequestCenter.WALLET_ACTION);
         request.addHeader("method", RequestCenter.UNBINDING_BANKCARD_METHOD);
         request.putParams("driverId", driverId);
-        request.putParams("payPassword", payPassword);
+        request.putParams("payPassword", MD5Util.md5Encode(MD5Util.md5Encode(payPassword)));
         doPost(request,callBack);
     }
 
@@ -216,9 +206,37 @@ public class BusinessApi  extends BaseApi{
         HttpRequest request=new HttpRequest();
         request.addHeader("action", RequestCenter.WALLET_ACTION);
         request.addHeader("method",RequestCenter.CHANGE_PAYPASSWORD_METHOD);
-        request.putParams("oldPassword",oldPassword);
-        request.putParams("newPassword",newPassword);
+        request.putParams("oldPassword",MD5Util.md5Encode(MD5Util.md5Encode(oldPassword)));
+        request.putParams("newPassword",MD5Util.md5Encode(MD5Util.md5Encode(newPassword)));
         request.putParams("verifyCode",verifyCode);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 提现接口
+     * */
+    public void withdraw(int driverId,String amount,String payPassword,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.WITHDRAW_METHOD);
+        request.putParams("driverId",driverId);
+        request.putParams("amount",amount);
+        request.putParams("payPassword",MD5Util.md5Encode(MD5Util.md5Encode(payPassword)));
+        doPost(request,callBack);
+    }
+    //////////////////////钱包接口完//////////////////////////
+
+
+    /////////////////////车辆管理接口/////////////////////////
+
+    /**
+     *  获取车辆列表信息
+     * */
+    public void getVehicleList(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.GET_VEHICLELIST_METHOD);
+        request.putParams("driverId",driverId);
         doPost(request,callBack);
     }
 

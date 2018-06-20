@@ -44,6 +44,8 @@ public class CommonValue {
      * */
     public static final int SIGN_CARRIER=1;//签约承运商
     public static final int AUTHENTICATION_CARRIER=2;//认证承运商
+    public static final int REGISTER_USER=3;//认证承运商
+
 
     /**
      * 车辆状态
@@ -58,6 +60,11 @@ public class CommonValue {
     public static final int CHECKPASS=2;//审核通过
     public static final int DISQUALIFICATION=3;//审核不通过
 
+
+    /**
+     * 钱包错误码
+     * */
+    public static final String PAYPASSWORD_ERROR="10042";//支付密码错误
 
 
 }

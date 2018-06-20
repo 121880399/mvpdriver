@@ -7,6 +7,7 @@ import com.zzy.quick.mvp.presenter.BasePresenter;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zzy.driver.R;
+import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
@@ -33,12 +34,20 @@ public class WithdrawPresenter extends BasePresenter<WithdrawActivity> implement
 
 
     /**
+     * 提现前的验证
+     * */
+    public void withdrawVerify(String withdrawMoney){
+        if(verifyDate(withdrawMoney)){
+            getView().inputPayPassword(withdrawMoney);
+        }
+    }
+
+
+    /**
      * 提现
      * */
-    public void withdraw(String withdrawMoney){
-        if(verifyDate(withdrawMoney)){
-            getView().inputPayPassword();
-        }
+    public void withdraw(String withdrawMoney,String password){
+        BusinessApi.getInstance().withdraw(UserInfoUtils.getUserInfo().getDriverId(),withdrawMoney,password,this);
     }
 
     /**
@@ -79,11 +88,19 @@ public class WithdrawPresenter extends BasePresenter<WithdrawActivity> implement
                 e.printStackTrace();
             }
         }
+        if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.WITHDRAW_METHOD)) {
+            getView().withdrawSuccess();
+        }
     }
 
     @Override
     public void doFaild(HttpResult error, String requestUrl, String method) {
-
+        if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.WITHDRAW_METHOD)) {
+            if(error.getResponse().getStatus().equals(CommonValue.PAYPASSWORD_ERROR)){
+                getView().showPasswordError();
+            }
+            getView().clearPassword();
+        }
     }
 
 
