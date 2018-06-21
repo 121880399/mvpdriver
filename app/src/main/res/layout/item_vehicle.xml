@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:padding="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_Select"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/check_vehicle_list"
+         />
+
+    <TextView
+        android:id="@+id/tv_vehicleCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_Select"
+        android:textColor="#858585"
+        android:textSize="@dimen/textsize_16" />
+
+    <TextView
+        android:id="@+id/tv_currentVehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/tv_vehicleCode"
+        android:background="@drawable/shape_button_blue_fill_circle"
+        android:padding="3dp"
+        android:text="当前车辆"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/textsize_14"
+        />
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_right" />
+
+    <TextView
+        android:id="@+id/tv_vehicleStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/iv_right"
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
+        android:textColor="#858585"
+        android:textSize="@dimen/textsize_16" />
+
+</RelativeLayout>

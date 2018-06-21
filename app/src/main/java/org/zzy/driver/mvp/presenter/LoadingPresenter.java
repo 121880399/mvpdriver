@@ -89,6 +89,8 @@ public class LoadingPresenter extends BasePresenter<LoadingActivity> implements 
 
     @Override
     public void doFaild(HttpResult error, String requestUrl, String method) {
-
+        if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.GET_USERINFO_METHOD)) {
+            getView().getUserInfoFaild();
+        }
     }
 }

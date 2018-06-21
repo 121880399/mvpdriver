@@ -2,6 +2,7 @@ package org.zzy.driver.mvp.ui.activity;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
 import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.mvp.presenter.LoadingPresenter;
@@ -54,7 +55,6 @@ public class LoadingActivity extends BaseActivity<LoadingPresenter> {
                                             .launch();
                                 }
                             }
-                            finish();
                         }
                     });
      }
@@ -70,6 +70,17 @@ public class LoadingActivity extends BaseActivity<LoadingPresenter> {
         Router.newIntent(this)
                 .to(MainActivity.class)
                 .launch();
+        finish();
     }
 
+
+    /**
+     * 获取用户信息失败
+     * */
+    public void getUserInfoFaild() {
+        ToastUtils.showShort("用户信息已过期请重新登录");
+        Router.newIntent(this)
+                .to(LoginActivity.class)
+                .launch();
+    }
 }

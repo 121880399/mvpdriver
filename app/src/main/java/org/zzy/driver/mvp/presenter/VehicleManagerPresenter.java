@@ -13,9 +13,11 @@ import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
 import org.zzy.driver.mvp.model.net.api.BusinessApi;
+import org.zzy.driver.mvp.model.net.api.UserApi;
 import org.zzy.driver.mvp.ui.activity.VehicleManagerActivity;
 import org.zzy.driver.utils.UserInfoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,15 +40,7 @@ public class VehicleManagerPresenter extends BasePresenter<VehicleManagerActivit
      * 得到车辆列表
      * */
     public void getVehicleList() {
-        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
-        int driverId;
-        //如果是注册用户，那么传司机ID，如果不是注册用户传用户ID
-        if(userInfo.getUserType()==CommonValue.REGISTER_USER){
-            driverId=userInfo.getDriverId();
-        }else{
-            driverId=userInfo.getCompany_id();
-        }
-        BusinessApi.getInstance().getVehicleList(driverId,this);
+        BusinessApi.getInstance().getVehicleList(getDriverId(),this);
     }
 
     @Override
@@ -66,10 +60,72 @@ public class VehicleManagerPresenter extends BasePresenter<VehicleManagerActivit
                 }
             }
         }
+        if(requestUrl.equals(RequestCenter.VEHICLE_ACTION)&&method.equals(RequestCenter.GET_BINDVEHICLE_METHOD)){
+            JSONObject mainData = response.getMainData();
+            try {
+                ResponseVehicle vehicle=JsonFactory.getJsonUtils().parseObject(mainData.getString("vehicleInfo"),ResponseVehicle.class);
+                //修改绑定车辆以后，要更新SP
+                SPUtils.getInstance().put(CommonValue.VEHICLEINFO,vehicle);
+                //修改完绑定车辆以后，重新获取一些车辆列表刷新数据
+                getVehicleList();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        if(requestUrl.equals(RequestCenter.VEHICLE_ACTION)&&method.equals(RequestCenter.BIND_VEHICLE_METHOD)){
+            getView().tipBindSuccess();
+            //绑定成功以后重新获取一下绑定的车辆信息
+            getBindVehicle();
+        }
     }
 
     @Override
     public void doFaild(HttpResult error, String requestUrl, String method) {
 
+    }
+
+
+    /**
+     * 获取绑定车辆信息
+     * */
+    public void getBindVehicle(){
+        UserApi.getInstance().getBindVehicle(getDriverId(),this);
+    }
+
+    /**
+     * 得到司机id
+     * */
+    private int getDriverId() {
+        ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+        int driverId;
+        if(userInfo.getUserType()== CommonValue.SIGN_CARRIER || userInfo.getUserType()==CommonValue.AUTHENTICATION_CARRIER){
+            driverId=userInfo.getCompany_id();
+        }else{
+            driverId=userInfo.getDriverId();
+        }
+        return driverId;
+    }
+
+
+    /**
+     * 将车辆设为当前车辆
+     * */
+    public void bindVehicle(int currentVehicleId) {
+        BusinessApi.getInstance().bindVehicle(getDriverId(),currentVehicleId,this);
+    }
+
+
+    /**
+     * 删除车辆
+     * 虽然接口支持批量删除，但是设为当前车辆一次只能设一辆，为了保持统一，不允许批量删除
+     * */
+    public void deleteVehicle(int vehicleId) {
+        if(UserInfoUtils.getUserInfo().getUserType()!=3){
+            getView().showError("承运商司机不能删除车辆！");
+        }else{
+            List<Integer> vehicleIds=new ArrayList<Integer>();
+            vehicleIds.add(vehicleId);
+            BusinessApi.getInstance().deleteVehicle(vehicleIds,this);
+        }
     }
 }

@@ -9,7 +9,7 @@
     <include layout="@layout/layout_topbar"></include>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sv_VehileList"
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -19,11 +19,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <org.zzy.driver.view.NoScrollListView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_vehicleList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:adapter="@{vehicleAdapter}">
-            </org.zzy.driver.view.NoScrollListView>
+                >
+            </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
                 android:id="@+id/ll_setvehicle"

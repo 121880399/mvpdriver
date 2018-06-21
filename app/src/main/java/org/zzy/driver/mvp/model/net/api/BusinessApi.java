@@ -9,6 +9,8 @@ import org.zzy.driver.mvp.model.net.HttpRequest;
 import org.zzy.driver.mvp.model.net.RequestCenter;
 import org.zzy.driver.utils.MD5Util;
 
+import java.util.List;
+
 /**
  * @function 业务API
  * Created by zhou on 2018/5/30.
@@ -239,5 +241,29 @@ public class BusinessApi  extends BaseApi{
         request.putParams("driverId",driverId);
         doPost(request,callBack);
     }
+
+    /**
+     *  绑定车辆
+     * */
+    public void bindVehicle(int driverId,int vehicleId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.BIND_VEHICLE_METHOD);
+        request.putParams("driverId",driverId);
+        request.putParams("vehicleId",vehicleId);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  删除车辆
+     * */
+    public void deleteVehicle (List<Integer> vehicleIds, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.DELETE_VEHICLE_METHOD);
+        request.putParams("vehicleIds",vehicleIds);
+        doPost(request,callBack);
+    }
+
 
 }

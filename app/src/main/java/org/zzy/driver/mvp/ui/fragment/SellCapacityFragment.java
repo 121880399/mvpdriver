@@ -308,8 +308,6 @@ public class SellCapacityFragment extends BaseFragment<SellCapacityPresenter> {
                 vehicleListDialog.dismiss();
             }
         });
-
-
     }
 
     @Override
