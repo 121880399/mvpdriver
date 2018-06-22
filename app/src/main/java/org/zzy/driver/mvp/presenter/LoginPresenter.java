@@ -1,12 +1,11 @@
 package org.zzy.driver.mvp.presenter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 import com.zzy.quick.utils.SPUtils;
 import com.zzy.quick.utils.ToastUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
@@ -36,7 +35,6 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
             //登录成功后将用户数据保存到SP中
             JSONObject mainData = response.getMainData();
             if (mainData != null) {
-                try {
                     String token = mainData.getString("token");
                     SPUtils.getInstance().put(CommonValue.TOKENCODE, token);
                     //这里这样判断是因为微服务的调整，为了兼容以前的接口跟微服务以后的接口所做的判断
@@ -50,14 +48,10 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                         //这里为兼容微服务和老版本的接口
                         UserApi.getInstance().getUserInfo(0, this);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         }
         if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.GET_USERINFO_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 ResponseUserInfo userInfo = JsonFactory.getJsonUtils().parseObject(mainData.getString("userInfo"), ResponseUserInfo.class);
                 SPUtils.getInstance().put(CommonValue.USERINFO, userInfo);
                 SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
@@ -67,19 +61,12 @@ public class LoginPresenter extends BasePresenter<LoginActivity> implements Http
                 } else {
                     UserApi.getInstance().getBindVehicle(userInfo.getDriverId(), this);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
         if (requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.GET_BINDVEHICLE_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 ResponseVehicle vehicle = JsonFactory.getJsonUtils().parseObject(mainData.getString("vehicleInfo"), ResponseVehicle.class);
                 SPUtils.getInstance().put(CommonValue.VEHICLEINFO, vehicle);
                 getView().goMain();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 

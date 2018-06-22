@@ -2,10 +2,9 @@ package org.zzy.driver.mvp.presenter;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.R;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
@@ -73,20 +72,12 @@ public class WithdrawPresenter extends BasePresenter<WithdrawActivity> implement
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.GET_BINDINGBANKCARD_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 getView().setBankCardInfo(mainData.getString("bankCardNum"),mainData.getString("userName"),mainData.getString("bankCardNanme"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
         if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.GET_WALLETINFO_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 mMaxWithdrawMoney=mainData.getDouble("withdrawAccount");
                 getView().setWalletInfo(mMaxWithdrawMoney);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
         if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.WITHDRAW_METHOD)) {
             getView().withdrawSuccess();

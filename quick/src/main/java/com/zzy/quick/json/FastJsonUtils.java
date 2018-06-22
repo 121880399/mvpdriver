@@ -1,12 +1,8 @@
 package com.zzy.quick.json;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -20,34 +16,22 @@ public class FastJsonUtils implements JsonUtils {
 
     @Override
     public JSONObject parseObject(String jsonStr) {
-       JSONObject obj=null;
-        try {
-            obj= new org.json.JSONObject(jsonStr);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return obj;
+        return JSON.parseObject(jsonStr);
     }
 
     @Override
     public <T> T parseObject(String jsonStr, Class<T> clazz) {
-        return JSON.parseObject(jsonStr,clazz);
+        return JSON.parseObject(jsonStr, clazz);
     }
 
     @Override
     public JSONArray parseArray(String jsonStr) {
-        JSONArray jsonArray=null;
-        try {
-            jsonArray=new JSONArray(jsonStr);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonArray;
+        return JSON.parseArray(jsonStr);
     }
 
     @Override
     public <T> List<T> parseArray(String jsonStr, Class<T> clazz) {
-        return JSON.parseArray(jsonStr,clazz);
+        return JSON.parseArray(jsonStr, clazz);
     }
 
     @Override

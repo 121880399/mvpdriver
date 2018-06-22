@@ -1,10 +1,9 @@
 package org.zzy.driver.mvp.presenter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.mvp.model.bean.response.ResponseIncome;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
@@ -33,12 +32,8 @@ public class IncomeListPresenter extends BasePresenter<IncomeListActivity> imple
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.GET_ACCOUNTBALANCELIST_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 List<ResponseIncome> mIncomeDatas = JsonFactory.getJsonUtils().parseArray(mainData.getString("accountBalanceList"), ResponseIncome.class);
                 getView().initAdapter(mIncomeDatas);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 

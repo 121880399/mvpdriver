@@ -2,12 +2,11 @@ package org.zzy.driver.mvp.presenter;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 import com.zzy.quick.utils.SPUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.bean.response.ResponseVehicle;
@@ -61,7 +60,6 @@ public class LoadingPresenter extends BasePresenter<LoadingActivity> implements 
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if(requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.GET_USERINFO_METHOD)){
             JSONObject mainData = response.getMainData();
-            try {
                 ResponseUserInfo userInfo = JsonFactory.getJsonUtils().parseObject(mainData.getString("userInfo"), ResponseUserInfo.class);
                 SPUtils.getInstance().put(CommonValue.USERINFO, userInfo);
                 SPUtils.getInstance().put(CommonValue.USERID, String.valueOf(userInfo.getId()));
@@ -71,19 +69,12 @@ public class LoadingPresenter extends BasePresenter<LoadingActivity> implements 
                 } else {
                     UserApi.getInstance().getBindVehicle(userInfo.getDriverId(), this);
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
         if (requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.GET_BINDVEHICLE_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 ResponseVehicle vehicle = JsonFactory.getJsonUtils().parseObject(mainData.getString("vehicleInfo"), ResponseVehicle.class);
                 SPUtils.getInstance().put(CommonValue.VEHICLEINFO, vehicle);
                 getView().goMain();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 
