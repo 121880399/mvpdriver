@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="车牌号"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <EditText
+                    android:id="@+id/et_vehicleNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入您的车牌号"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_div" />
+
+            <LinearLayout
+                android:id="@+id/ll_carType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="车辆类型"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <TextView
+                    android:id="@+id/tv_carType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="right"
+                    android:hint="请选择"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_div" />
+
+            <LinearLayout
+                android:id="@+id/ll_linkType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="拖挂形式"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <TextView
+                    android:id="@+id/tv_linkType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="right"
+                    android:hint="请选择"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_div" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioGroup
+                    android:id="@+id/rg_peg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/rb_havePeg"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_havePeg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/selector_radiobutton"
+                        android:button="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="有挂"
+                        android:textColor="@color/color_gray"
+                        android:textSize="@dimen/textsize_18" />
+
+                    <RadioButton
+                        android:id="@+id/rb_noPeg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="70dp"
+                        android:background="@drawable/selector_radiobutton"
+                        android:button="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="无挂"
+                        android:textColor="@color/color_gray"
+                        android:textSize="@dimen/textsize_18" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_boxType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="车长"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <TextView
+                    android:id="@+id/tv_boxType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="right"
+                    android:hint="请选择"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_div" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="车长"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <EditText
+                    android:id="@+id/et_vehicleLength"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入车长（单位米）"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_div" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="车重"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/textsize_16" />
+
+                <EditText
+                    android:id="@+id/et_vehicleWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请输入车重（单位吨）"
+                    android:textSize="@dimen/textsize_16" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="@color/color_div" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:padding="10dp"
+                android:text="车辆行驶证照片"
+                android:textColor="#14191e"
+                android:textSize="@dimen/textsize_16" />
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_add"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_drivingLicense"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="onClick" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+
+                    android:text="本人与车辆合影"
+                    android:textColor="#14191e"
+                    android:textSize="@dimen/textsize_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（能够看清车牌号和人脸）"
+                    android:textColor="#e35f4d"
+                    android:textSize="@dimen/textsize_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_add"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_groupPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="onClick" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_white"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="货车营运证"
+                android:textColor="#14191e"
+                android:textSize="@dimen/textsize_14" />
+
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_add"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_operationCertificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="onClick" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/shape_button_orange_circle"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="提交"
+                android:textColor="@color/color_white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

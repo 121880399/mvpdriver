@@ -21,7 +21,9 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -42,6 +44,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <pre>
@@ -1522,5 +1527,90 @@ public final class ImageUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 图片压缩算法
+     * */
+    public static File compress(String path){
+        File outputFile = new File(path);
+        long fileSize = outputFile.length();
+        final long fileMaxSize = 1024 * 1024;
+        if (fileSize >= fileMaxSize) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(path, options);
+            int height = options.outHeight;
+            int width = options.outWidth;
+
+            double scale = Math.sqrt((float) fileSize / fileMaxSize);
+            options.outHeight = (int) (height / scale);
+            options.outWidth = (int) (width / scale);
+            options.inSampleSize = (int) (scale + 0.5);
+            options.inJustDecodeBounds = false;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+            outputFile = new File(createImageFile().getPath());
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(outputFile);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+                fos.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (!bitmap.isRecycled()) {
+                bitmap.recycle();
+            }else{
+                File tempFile = outputFile;
+                outputFile = new File(createImageFile().getPath());
+                copyFileUsingFileChannels(tempFile, outputFile);
+            }
+
+        }
+        return outputFile;
+
+    }
+
+    public static Uri createImageFile(){
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_ "+ timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = null;
+        try {
+            image = File.createTempFile(imageFileName,".jpg", storageDir);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // Save a file: path for use with ACTION_VIEW intents
+        return Uri.fromFile(image);
+    }
+
+    public static void copyFileUsingFileChannels(File source, File dest){
+        FileChannel inputChannel = null;
+        FileChannel outputChannel = null;
+        try {
+            try {
+                inputChannel = new FileInputStream(source).getChannel();
+                outputChannel = new FileOutputStream(dest).getChannel();
+                outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                inputChannel.close();
+                outputChannel.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 }

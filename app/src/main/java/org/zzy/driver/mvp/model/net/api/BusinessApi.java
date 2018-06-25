@@ -4,6 +4,7 @@ import com.zzy.quick.utils.TimeUtils;
 
 import org.zzy.driver.mvp.model.bean.request.RequestAddCard;
 import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
+import org.zzy.driver.mvp.model.bean.request.RequestVehicleInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpRequest;
 import org.zzy.driver.mvp.model.net.RequestCenter;
@@ -265,5 +266,32 @@ public class BusinessApi  extends BaseApi{
         doPost(request,callBack);
     }
 
+    /**
+     *  删除车辆
+     * */
+    public void getCarBaseData (HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.GET_CAR_INFO_METHOD);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  添加车辆
+     * */
+    public void addVehicle (int driverId,RequestVehicleInfo vehicleInfo,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.ADD_CAR_METHOD);
+        request.putParams("saveOrUpdate",0);
+        request.putParams("vehicle_length", vehicleInfo.getVehicleLength());
+        request.putParams("total_mass_trailer", vehicleInfo.getVehicleWeight());
+        request.putParams("driverId", driverId);
+        request.putParams("carNumber", vehicleInfo.getVehicleCode());
+        request.putParams("carType", vehicleInfo.getVehicleTypeCode());
+        request.putParams("tractorType", vehicleInfo.getLinkTypeCode());
+        request.putParams("boxType", vehicleInfo.getContainerId());
+        uploadeFile(request,vehicleInfo.getImageFileMap(),callBack);
+    }
 
 }
