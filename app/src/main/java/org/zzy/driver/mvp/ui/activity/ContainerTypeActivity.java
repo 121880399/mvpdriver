@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 车辆管理-箱型箱类
  * Created by zhou on 2018/6/25.
  */
 

@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 车辆管理-拖挂形式界面
  * Created by zhou on 2018/6/25.
  */
 

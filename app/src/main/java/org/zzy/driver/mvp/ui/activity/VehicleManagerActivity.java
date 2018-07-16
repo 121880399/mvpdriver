@@ -114,7 +114,7 @@ public class VehicleManagerActivity extends BaseActivity<VehicleManagerPresenter
             getTopbar().setRightText("管理");
             btnAddVehicle.setVisibility(View.VISIBLE);
             llSetvehicle.setVisibility(View.GONE);
-            btnAddVehicle.setVisibility(View.GONE);
+            btnDeleteVehicle.setVisibility(View.GONE);
             if(vehicleAdapter!=null){
                 vehicleAdapter.setClickManager(isClickManager);
                 vehicleAdapter.notifyDataSetChanged();

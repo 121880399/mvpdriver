@@ -21,6 +21,7 @@ import org.zzy.driver.mvp.ui.activity.AddVehicleActivity;
 import org.zzy.driver.utils.UserInfoUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,12 +116,15 @@ public class AddVehiclePresenter extends BasePresenter<AddVehicleActivity> imple
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.GET_CAR_INFO_METHOD)) {
             JSONObject mainData = response.getMainData();
-            List<ResponseVehicleType> vehicleTypeList= JsonFactory.getJsonUtils().parseArray(mainData.getString("carTypeMap"),ResponseVehicleType.class);
-            List<ResponseContainerType> containerTypeList=JsonFactory.getJsonUtils().parseArray(mainData.getString("boxTypeMap"),ResponseContainerType.class);
-            List<ResponseLinkType> linkTypeList=JsonFactory.getJsonUtils().parseArray(mainData.getString("linkTypeMap"),ResponseLinkType.class);
+            ArrayList<ResponseVehicleType> vehicleTypeList= (ArrayList<ResponseVehicleType>) JsonFactory.getJsonUtils().parseArray(mainData.getString("carTypeMap"),ResponseVehicleType.class);
+            ArrayList<ResponseContainerType> containerTypeList= (ArrayList<ResponseContainerType>) JsonFactory.getJsonUtils().parseArray(mainData.getString("boxTypeMap"),ResponseContainerType.class);
+            ArrayList<ResponseLinkType> linkTypeList= (ArrayList<ResponseLinkType>) JsonFactory.getJsonUtils().parseArray(mainData.getString("linkTypeMap"),ResponseLinkType.class);
             getView().setVehicleTypeList(vehicleTypeList);
             getView().setContainerTypeList(containerTypeList);
             getView().setLinkTypeList(linkTypeList);
+        }
+        if(requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.ADD_CAR_METHOD)){
+            getView().addVehicleSuccess();
         }
     }
 

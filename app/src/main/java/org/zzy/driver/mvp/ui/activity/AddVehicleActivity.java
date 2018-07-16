@@ -16,6 +16,7 @@ import com.linchaolong.android.imagepicker.ImagePicker;
 import com.zzy.quick.image.ImageFactory;
 import com.zzy.quick.mvp.ui.BaseActivity;
 import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.common.AppConfig;
@@ -48,6 +49,8 @@ public class AddVehicleActivity extends BaseActivity<AddVehiclePresenter> {
     private static final int VEHICLETYPECODE = 1;//车辆类型
     private static final int LINKTYPECODE = 2;//拖挂形式
     private static final int CONTAINERTYPECODE = 3;//箱型箱类
+    private String[] titles = new String[]{"拍照", "相册"};
+
 
     @BindView(R.id.et_vehicleNum)
     EditText etVehicleNum;
@@ -83,9 +86,9 @@ public class AddVehicleActivity extends BaseActivity<AddVehiclePresenter> {
     Button btnNext;
 
     private ImagePicker imagePicker = new ImagePicker();
-    List<ResponseVehicleType> mVehicleTypeList;
-    List<ResponseContainerType> mContainerTypeList;
-    List<ResponseLinkType> mLinkTypeList;
+    ArrayList<ResponseVehicleType> mVehicleTypeList;
+    ArrayList<ResponseContainerType> mContainerTypeList;
+    ArrayList<ResponseLinkType> mLinkTypeList;
     //是否使用相机
     private boolean isCamera =false;
     private RequestVehicleInfo vehicleInfo;
@@ -130,15 +133,15 @@ public class AddVehicleActivity extends BaseActivity<AddVehiclePresenter> {
     }
 
 
-    public void setVehicleTypeList(List<ResponseVehicleType> vehicleTypeList) {
+    public void setVehicleTypeList(ArrayList<ResponseVehicleType> vehicleTypeList) {
         this.mVehicleTypeList = vehicleTypeList;
     }
 
-    public void setContainerTypeList(List<ResponseContainerType> containerTypeList) {
+    public void setContainerTypeList(ArrayList<ResponseContainerType> containerTypeList) {
         this.mContainerTypeList = containerTypeList;
     }
 
-    public void setLinkTypeList(List<ResponseLinkType> linkTypeList) {
+    public void setLinkTypeList(ArrayList<ResponseLinkType> linkTypeList) {
         this.mLinkTypeList = linkTypeList;
     }
 
@@ -217,6 +220,14 @@ public class AddVehicleActivity extends BaseActivity<AddVehiclePresenter> {
         getPresenter().addVehicle(vehicleInfo);
     }
 
+    /**
+     * 添加车辆成功
+     * */
+    public void addVehicleSuccess(){
+        ToastUtils.showShort("车辆添加成功！");
+        finish();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -254,7 +265,7 @@ public class AddVehicleActivity extends BaseActivity<AddVehiclePresenter> {
     }
 
     private void startCameraOrGallery(final int type) {
-        ActionSheet.Builder mBuilder; mBuilder = ActionSheet.createBuilder(this, getSupportFragmentManager()).setOtherButtonTitles(titles).setCancelButtonTitle(R.string.text_cancle).setListener(new ActionSheet.ActionSheetListener() {
+        ActionSheet.Builder mBuilder; mBuilder = ActionSheet.createBuilder(this, getSupportFragmentManager()).setOtherButtonTitles(titles).setCancelButtonTitle("取消").setListener(new ActionSheet.ActionSheetListener() {
             @Override
             public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
 
