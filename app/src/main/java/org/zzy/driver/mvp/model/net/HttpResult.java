@@ -3,10 +3,10 @@ package org.zzy.driver.mvp.model.net;
 import android.text.TextUtils;
 import android.widget.ExpandableListView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.model.BaseModel;
 
-import org.json.JSONObject;
 import org.zzy.driver.common.AuthErrorEnum;
 import org.zzy.driver.common.BizErrorEnum;
 
@@ -61,7 +61,7 @@ public class HttpResult extends BaseModel {
             if(data.length()==0|| TextUtils.isEmpty(data)){
                 return null;
             }else {
-                JSONObject object = JsonFactory.getJsonUtils().parseObject(data);
+                JSONObject object = (JSONObject) JsonFactory.getJsonUtils().parseObject(data);
                 return object;
             }
         }catch (Exception e){

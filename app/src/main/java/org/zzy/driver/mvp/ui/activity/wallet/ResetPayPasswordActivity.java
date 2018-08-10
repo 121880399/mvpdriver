@@ -1,21 +1,23 @@
 package org.zzy.driver.mvp.ui.activity.wallet;
 
-import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zzy.quick.mvp.ui.BaseActivity;
+import com.zzy.quick.router.Router;
+import com.zzy.quick.utils.ToastUtils;
 
 import org.zzy.driver.R;
 import org.zzy.driver.mvp.presenter.ResetPayPasswordPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 钱包-重置支付密码界面
  * Created by zhou on 2018/6/15.
  */
 
@@ -54,13 +56,37 @@ public class ResetPayPasswordActivity extends BaseActivity<ResetPayPasswordPrese
     @Override
     public void initView() {
         super.initView();
-
     }
 
 
     @Override
     public void initData() {
+        getTopbar().setTitle("重置支付密码");
+        getTopbar().setLeftImageListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
 
+
+    /**
+     * 点击提交按钮
+     * */
+    @OnClick(R.id.btn_submit)
+    public void clickSubmit(){
+        getPresenter().submit(etIdCard.getText().toString(),etPassword.getText().toString(),etConfirmPassword.getText().toString(),etCode.getText().toString());
+    }
+
+    /**
+     * 重设支付密码成功
+     * */
+    public void resetSuccess(){
+        ToastUtils.showShort("支付密码重置成功！");
+        Router.newIntent(this)
+                .to(WalletActivity.class)
+                .launch();
     }
 
     /**
@@ -82,7 +108,7 @@ public class ResetPayPasswordActivity extends BaseActivity<ResetPayPasswordPrese
     /**
      * 点击清除确认密码
      * */
-    @OnClick(R.id.et_confirmPassword)
+    @OnClick(R.id.iv_clearConfirmPassword)
     public void clickClearConfirmPassword(){
         etConfirmPassword.setText("");
     }

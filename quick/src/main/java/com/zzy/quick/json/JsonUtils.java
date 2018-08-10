@@ -1,7 +1,9 @@
 package com.zzy.quick.json;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public interface JsonUtils {
     /**
      * 将String字符串转换成一个JsonObject
      * */
-     JSONObject parseObject(String jsonStr);
+     Object parseObject(String jsonStr);
 
      /**
       * 将String字符串解析为指定的JavaBean
@@ -25,7 +27,7 @@ public interface JsonUtils {
      /**
       * 将String字符串转换为JSONArray
       * */
-     JSONArray parseArray(String jsonStr);
+     Object parseArray(String jsonStr);
 
      /**
       * 将String字符串转换为包含自定类的List集合

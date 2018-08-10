@@ -6,7 +6,6 @@ import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
 import org.zzy.driver.mvp.model.net.api.BusinessApi;
-import org.zzy.driver.mvp.model.net.api.UserApi;
 import org.zzy.driver.mvp.ui.activity.wallet.UnbindingCardActivity;
 import org.zzy.driver.utils.UserInfoUtils;
 
@@ -23,7 +22,7 @@ public class UnbindingCardPresenter extends BasePresenter<UnbindingCardActivity>
      * */
     public void checkPayPassword(String password){
         payPassword=password;
-        UserApi.newInstance().checkPayPassword(password,this);
+        BusinessApi.getInstance().checkPayPassword(password,this);
     }
 
     /**

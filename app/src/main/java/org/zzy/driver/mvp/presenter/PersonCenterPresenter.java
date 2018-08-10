@@ -6,14 +6,13 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 import com.zzy.quick.router.Router;
 import com.zzy.quick.utils.SPUtils;
 import com.zzy.quick.utils.ToastUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.R;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUpdate;
@@ -46,8 +45,7 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterFragment> i
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.VERSION_ACTION) && method.equals(RequestCenter.CHECKVERSION)) {
             JSONObject mainData = response.getMainData();
-            try {
-                int hasNewVersion = mainData.getInt("hasNewVersion");
+                int hasNewVersion = mainData.getIntValue("hasNewVersion");
                 if (hasNewVersion == 1) {
                     final ResponseUpdate update = JsonFactory.getJsonUtils().parseObject(mainData.getString("versionInfo"), ResponseUpdate.class);
                     AlertDialog.Builder builder = new AlertDialog.Builder(getView().getActivity());
@@ -88,9 +86,6 @@ public class PersonCenterPresenter extends BasePresenter<PersonCenterFragment> i
                 } else {
                     ToastUtils.showShort("暂无更新！");
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
 
 

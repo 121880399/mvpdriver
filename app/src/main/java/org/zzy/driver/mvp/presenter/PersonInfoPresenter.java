@@ -1,10 +1,9 @@
 package org.zzy.driver.mvp.presenter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 import com.zzy.quick.utils.SPUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
@@ -23,7 +22,7 @@ import java.io.File;
 public class PersonInfoPresenter extends BasePresenter<PersonInfoActivity> implements HttpCallBack {
 
     public void setUserHead(File file){
-        UserApi.newInstance().changeAvatar(file, UserInfoUtils.getUserInfo().getId(),this);
+        UserApi.getInstance().changeAvatar(file, UserInfoUtils.getUserInfo().getId(),this);
     }
 
     @Override
@@ -31,14 +30,9 @@ public class PersonInfoPresenter extends BasePresenter<PersonInfoActivity> imple
         if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.CHANGEAVATAR_METHOD)){
             JSONObject object = response.getMainData();
             ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
-            try {
                 userInfo.setIcon(object.getString("avator"));
                 SPUtils.getInstance().put(CommonValue.USERINFO, userInfo);
                 getView().showAvatar();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 

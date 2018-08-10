@@ -4,10 +4,13 @@ import com.zzy.quick.utils.TimeUtils;
 
 import org.zzy.driver.mvp.model.bean.request.RequestAddCard;
 import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
+import org.zzy.driver.mvp.model.bean.request.RequestVehicleInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpRequest;
 import org.zzy.driver.mvp.model.net.RequestCenter;
 import org.zzy.driver.utils.MD5Util;
+
+import java.util.List;
 
 /**
  * @function 业务API
@@ -47,16 +50,6 @@ public class BusinessApi  extends BaseApi{
         doPost(request,callBack);
     }
 
-    /**
-     * 得到车辆列表接口
-     * */
-    public void getVehicleList(int driverId,HttpCallBack callBack){
-        HttpRequest request=new HttpRequest();
-        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
-        request.addHeader("method", RequestCenter.GET_VEHICLELIST_METHOD);
-        request.putParams("driverId",driverId);
-        doPost(request,callBack);
-    }
 
     /**
      * 出售运力接口
@@ -88,6 +81,7 @@ public class BusinessApi  extends BaseApi{
         doPost(request,callBack);
     }
 
+    ///////////////钱包接口////////////////////
     /**
      * 获取钱包信息
      * */
@@ -158,7 +152,7 @@ public class BusinessApi  extends BaseApi{
         request.addHeader("action", RequestCenter.WALLET_ACTION);
         request.addHeader("method", RequestCenter.UNBINDING_BANKCARD_METHOD);
         request.putParams("driverId", driverId);
-        request.putParams("payPassword", payPassword);
+        request.putParams("payPassword", MD5Util.md5Encode(MD5Util.md5Encode(payPassword)));
         doPost(request,callBack);
     }
 
@@ -172,4 +166,132 @@ public class BusinessApi  extends BaseApi{
         request.putParams("phone", phone);
         doPost(request,callBack);
     }
+
+    /**
+     * 钱包验证支付密码接口
+     * */
+    public void checkPayPassword(String password,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.CHECK_PAYPASSWORD_METHOD);
+        request.putParams("payPassword",MD5Util.md5Encode(MD5Util.md5Encode(password)));
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void setPayPassword(String idCard,String password,String verifyCode,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.SET_PAYPASSWORD_METHOD);
+        request.putParams("password",MD5Util.md5Encode(MD5Util.md5Encode(password)));
+        request.putParams("idCard",idCard);
+        request.putParams("verifyCode",verifyCode);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void getAccountBalanceList(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.GET_ACCOUNTBALANCELIST_METHOD);
+        request.putParams("driverId",driverId);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 设置支付密码与重设支付密码接口
+     * */
+    public void changePayPassword(String oldPassword,String newPassword,String verifyCode,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.CHANGE_PAYPASSWORD_METHOD);
+        request.putParams("oldPassword",MD5Util.md5Encode(MD5Util.md5Encode(oldPassword)));
+        request.putParams("newPassword",MD5Util.md5Encode(MD5Util.md5Encode(newPassword)));
+        request.putParams("verifyCode",verifyCode);
+        doPost(request,callBack);
+    }
+
+    /**
+     * 钱包 提现接口
+     * */
+    public void withdraw(int driverId,String amount,String payPassword,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.WALLET_ACTION);
+        request.addHeader("method",RequestCenter.WITHDRAW_METHOD);
+        request.putParams("driverId",driverId);
+        request.putParams("amount",amount);
+        request.putParams("payPassword",MD5Util.md5Encode(MD5Util.md5Encode(payPassword)));
+        doPost(request,callBack);
+    }
+    //////////////////////钱包接口完//////////////////////////
+
+
+    /////////////////////车辆管理接口/////////////////////////
+
+    /**
+     *  获取车辆列表信息
+     * */
+    public void getVehicleList(int driverId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.GET_VEHICLELIST_METHOD);
+        request.putParams("driverId",driverId);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  绑定车辆
+     * */
+    public void bindVehicle(int driverId,int vehicleId,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.BIND_VEHICLE_METHOD);
+        request.putParams("driverId",driverId);
+        request.putParams("vehicleId",vehicleId);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  删除车辆
+     * */
+    public void deleteVehicle (List<Integer> vehicleIds, HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.DELETE_VEHICLE_METHOD);
+        request.putParams("vehicleIds",vehicleIds);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  删除车辆
+     * */
+    public void getCarBaseData (HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.GET_CAR_INFO_METHOD);
+        doPost(request,callBack);
+    }
+
+    /**
+     *  添加车辆
+     * */
+    public void addVehicle (int driverId,RequestVehicleInfo vehicleInfo,HttpCallBack callBack){
+        HttpRequest request=new HttpRequest();
+        request.addHeader("action", RequestCenter.VEHICLE_ACTION);
+        request.addHeader("method",RequestCenter.ADD_CAR_METHOD);
+        request.putParams("saveOrUpdate",0);
+        request.putParams("vehicle_length", vehicleInfo.getVehicleLength());
+        request.putParams("total_mass_trailer", vehicleInfo.getVehicleWeight());
+        request.putParams("driverId", driverId);
+        request.putParams("carNumber", vehicleInfo.getVehicleCode());
+        request.putParams("carType", vehicleInfo.getVehicleTypeCode());
+        request.putParams("tractorType", vehicleInfo.getLinkTypeCode());
+        request.putParams("boxType", vehicleInfo.getContainerId());
+        uploadeFile(request,vehicleInfo.getImageFileMap(),callBack);
+    }
+
 }

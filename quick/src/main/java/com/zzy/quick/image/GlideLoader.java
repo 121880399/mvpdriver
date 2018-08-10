@@ -132,8 +132,28 @@ public class GlideLoader implements ImageLoader {
             request.error(options.loadErrorResId);
         }
 
+        /**
+         * 选择硬盘缓存策略
+         * */
+        DiskCacheStrategy strategy=null;
+        switch (options.mDiskCacheStrategy){
+            case Options.DISK_ALL:
+                strategy=DiskCacheStrategy.ALL;
+                break;
+            case Options.DISK_NONE:
+                strategy=DiskCacheStrategy.NONE;
+                break;
+            case Options.DISK_SOURCE:
+                strategy=DiskCacheStrategy.SOURCE;
+                break;
+            case Options.DISK_RESULT:
+                strategy=DiskCacheStrategy.RESULT;
+                break;
+        }
+
         wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .diskCacheStrategy(strategy)
+                .skipMemoryCache(options.isSkipMemoryCache)
                 .crossFade()
                 .into(target);
     }

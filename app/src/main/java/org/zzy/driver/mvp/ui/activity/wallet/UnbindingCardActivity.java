@@ -67,7 +67,6 @@ public class UnbindingCardActivity extends BaseActivity<UnbindingCardPresenter> 
      * */
     public void showUnbindingTip() {
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("提示")
                 .setMessage("将当前绑定的银行卡解绑")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -80,9 +79,9 @@ public class UnbindingCardActivity extends BaseActivity<UnbindingCardPresenter> 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         pswView.clearPassword();
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
@@ -101,7 +100,6 @@ public class UnbindingCardActivity extends BaseActivity<UnbindingCardPresenter> 
      * */
     public void showPasswordError() {
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("提示")
                 .setMessage("密码错误")
                 .setPositiveButton("忘记密码", new DialogInterface.OnClickListener() {
@@ -116,9 +114,9 @@ public class UnbindingCardActivity extends BaseActivity<UnbindingCardPresenter> 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         pswView.clearPassword();
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 }

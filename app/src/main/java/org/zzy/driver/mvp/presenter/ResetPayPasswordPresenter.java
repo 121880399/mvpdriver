@@ -1,7 +1,13 @@
 package org.zzy.driver.mvp.presenter;
 
-import com.zzy.quick.mvp.presenter.BasePresenter;
+import android.text.TextUtils;
 
+import com.zzy.quick.mvp.presenter.BasePresenter;
+import com.zzy.quick.utils.SPUtils;
+import com.zzy.quick.utils.ToastUtils;
+
+import org.zzy.driver.common.CommonValue;
+import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
@@ -24,12 +30,57 @@ public class ResetPayPasswordPresenter extends BasePresenter<ResetPayPasswordAct
         BusinessApi.getInstance().getPaySms(UserInfoUtils.getUserInfo().getPhone(),this);
     }
 
+
+    /**
+     * 提交数据
+     * */
+    public void submit(String idCardNum,String password,String repeatPassword,String verifyCode){
+        if(verifyData(idCardNum,password,repeatPassword,verifyCode)){
+            resetPassword(idCardNum,password,verifyCode);
+        }
+    }
+
+    private void resetPassword(String idCardNum,String password,String verifyCode){
+        BusinessApi.getInstance().setPayPassword(idCardNum,password,verifyCode,this);
+    }
+
+    private boolean verifyData(String idCardNum,String password,String repeatPassword,String verifyCode){
+        if(TextUtils.isEmpty(idCardNum)){
+            getView().showError("请输入身份证号！");
+            return false;
+        }
+        if(TextUtils.isEmpty(password)){
+            getView().showError("请输入支付密码！");
+            return false;
+        }
+        if(TextUtils.isEmpty(repeatPassword)){
+            getView().showError("请输入确认密码！");
+            return false;
+        }
+        if(TextUtils.isEmpty(verifyCode)){
+            getView().showError("请输入验证码！");
+            return false;
+        }
+        if(TextUtils.equals(password,repeatPassword)){
+            getView().showError("两次输入的密码不一致！");
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if(requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.GET_PAYSMS_METHOD)){
             //验证码发送成功后才开始计时,并且不能点击发送验证码按钮
             mTimeCount.start();
             getView().setEnabled(false);
+        }
+        if(requestUrl.equals(RequestCenter.WALLET_ACTION)&&method.equals(RequestCenter.SET_PAYPASSWORD_METHOD)){
+            ResponseUserInfo userInfo = UserInfoUtils.getUserInfo();
+            //重新设置支付密码后，要标识已经设置支付密码
+            userInfo.setHasPayPassword(1);
+            SPUtils.getInstance().put(CommonValue.USERINFO,userInfo);
+            getView().resetSuccess();
         }
     }
 

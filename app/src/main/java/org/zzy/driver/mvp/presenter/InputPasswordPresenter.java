@@ -5,6 +5,7 @@ import com.zzy.quick.mvp.presenter.BasePresenter;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
 import org.zzy.driver.mvp.model.net.HttpResult;
 import org.zzy.driver.mvp.model.net.RequestCenter;
+import org.zzy.driver.mvp.model.net.api.BusinessApi;
 import org.zzy.driver.mvp.model.net.api.UserApi;
 import org.zzy.driver.mvp.ui.activity.wallet.InputPasswordActivity;
 
@@ -18,7 +19,7 @@ public class InputPasswordPresenter extends BasePresenter<InputPasswordActivity>
      * 验证支付密码
      * */
     public void checkPayPassword(String password){
-        UserApi.newInstance().checkPayPassword(password,this);
+        BusinessApi.getInstance().checkPayPassword(password,this);
     }
 
     @Override
@@ -30,6 +31,6 @@ public class InputPasswordPresenter extends BasePresenter<InputPasswordActivity>
 
     @Override
     public void doFaild(HttpResult error, String requestUrl, String method) {
-
+        getView().showError(error.getErrorMsg());
     }
 }

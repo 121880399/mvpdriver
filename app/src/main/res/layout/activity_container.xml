@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar"></include>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee"
+            android:padding="15dp"
+            android:text="箱型箱类可多选哦"
+            android:textColor="#686868"
+            android:textSize="@dimen/textsize_18" />
+
+        <ListView
+            android:id="@+id/lv_containerType"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/selector_listview_item"
+            android:scrollbars="none"></ListView>
+    </LinearLayout>
+
+</LinearLayout>

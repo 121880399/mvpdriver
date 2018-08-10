@@ -1,10 +1,9 @@
 package org.zzy.driver.mvp.presenter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.request.RequestSellCapacity;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
@@ -76,12 +75,8 @@ public class SellCapacityPresenter extends BasePresenter<SellCapacityFragment> i
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.VEHICLE_ACTION) && method.equals(RequestCenter.GET_VEHICLELIST_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 List<ResponseVehicle> vehicleList=JsonFactory.getJsonUtils().parseArray(mainData.getString("vehicleList"), ResponseVehicle.class);
                 getView().showVehicleList(vehicleList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
         if (requestUrl.equals(RequestCenter.CAPACITY_ACTION) && method.equals(RequestCenter.SELL_TRANSE_CAPACAITY_METHOD)) {
             getView().sellSuccess();

@@ -112,7 +112,6 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
      * */
     public void promptBoundCard(){
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("绑定银行卡")
                 .setMessage("您还未绑定银行卡，是否绑定？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -126,9 +125,9 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
                 .setNegativeButton("否", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 
@@ -145,6 +144,7 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
     /**
      * 跳转到提现界面
      * */
+    @OnClick(R.id.btn_withdraw)
     public void goWithdraw() {
         Router.newIntent(this)
                 .to(WithdrawActivity.class)
@@ -157,7 +157,6 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
      * */
     public void promptSettingPassword() {
         AlertDialog.Builder builder =new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.show();
         builder.setTitle("设置支付密码")
                 .setMessage("您还未设置支付密码，是否设置？")
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -171,9 +170,9 @@ public class WalletActivity extends BaseActivity<WalletPresenter> {
                 .setNegativeButton("否", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.show();
         alertDialog.getWindow().setGravity(Gravity.CENTER);
     }
 

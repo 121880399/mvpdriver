@@ -80,17 +80,29 @@ public interface ImageLoader {
 
     class Options {
         public static final int RES_NONE = -1;
+        public static final int DISK_ALL = 1;//所有的都在磁盘缓存
+        public static final int DISK_NONE = 2;//所有的都不缓存
+        public static final int DISK_SOURCE = 3;//只缓存源文件
+        public static final int DISK_RESULT = 4;//只缓存转换后的文件
+
         public int loadingResId = RES_NONE;        //加载中的资源id,占位符
         public int loadErrorResId = RES_NONE;      //加载失败的资源id，加载失败占位符
         public ImageView.ScaleType scaleType = null;
+        public int mDiskCacheStrategy;//硬盘缓存策略
+        public boolean isSkipMemoryCache;//是否跳过内存缓存
 
+        /**
+         * 某人设置硬盘不缓存，并且跳过内存缓存
+         * */
         public static Options defaultOptions() {
-            return new Options(RES_NONE, RES_NONE);
+            return new Options(RES_NONE, RES_NONE,DISK_NONE,true);
         }
 
-        public Options(int loadingResId, int loadErrorResId) {
+        public Options(int loadingResId, int loadErrorResId,int diskCacheStrategy,boolean isSkipMemoryCache) {
             this.loadingResId = loadingResId;
             this.loadErrorResId = loadErrorResId;
+            this.mDiskCacheStrategy = diskCacheStrategy;
+            this.isSkipMemoryCache=isSkipMemoryCache;
         }
 
         public Options scaleType(ImageView.ScaleType scaleType) {

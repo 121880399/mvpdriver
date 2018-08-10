@@ -1,9 +1,8 @@
 package org.zzy.driver.mvp.presenter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.common.CommonValue;
 import org.zzy.driver.mvp.model.bean.response.ResponseUserInfo;
 import org.zzy.driver.mvp.model.net.HttpCallBack;
@@ -83,15 +82,11 @@ public class WalletPresenter extends BasePresenter<WalletActivity> implements Ht
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.WALLET_ACTION) && method.equals(RequestCenter.GET_WALLETINFO_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 double generalIncome = mainData.getDouble("generalIncome");
                 double waitConfirmedIncome = mainData.getDouble("waitConfirmedIncome");
                 double withdrawAccount = mainData.getDouble("withdrawAccount");
                 isBoundBank = mainData.getBoolean("isBoundBank");
                 getView().showData(generalIncome, waitConfirmedIncome, withdrawAccount);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
         }
     }

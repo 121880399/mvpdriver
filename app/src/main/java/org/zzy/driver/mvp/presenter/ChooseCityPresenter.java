@@ -2,11 +2,10 @@ package org.zzy.driver.mvp.presenter;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zzy.quick.json.JsonFactory;
 import com.zzy.quick.mvp.presenter.BasePresenter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.zzy.driver.BaseApplication;
 import org.zzy.driver.mvp.model.bean.custom.CitySortData;
 import org.zzy.driver.mvp.model.bean.custom.CityUseHistory;
@@ -159,14 +158,10 @@ public class ChooseCityPresenter extends BasePresenter<ChooseCityActivity> imple
     public void doSuccess(HttpResult response, String requestUrl, String method) {
         if (requestUrl.equals(RequestCenter.USER_ACTION) && method.equals(RequestCenter.GET_CITY_LIST_METHOD)) {
             JSONObject mainData = response.getMainData();
-            try {
                 List<ResponseCityList> cityList=JsonFactory.getJsonUtils().parseArray(mainData.getString("cityList"), ResponseCityList.class);
                 citySortData = filledData(cityList);
                 sort(citySortData);
                 getView().showCityList(citySortData);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 

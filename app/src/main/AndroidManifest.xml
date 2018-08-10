@@ -36,7 +36,6 @@
         <activity android:name=".mvp.ui.activity.QRCodeActivity"/>
         <activity android:name=".mvp.ui.activity.RecommendActivity"/>
         <activity android:name=".mvp.ui.activity.SellCapacityRecordActivity"/>
-        <activity android:name=".mvp.ui.activity.VehicleManagerActivity"/>
         <activity android:name=".mvp.ui.activity.UserGuideActivity"/>
         <!--钱包-->
         <activity android:name=".mvp.ui.activity.wallet.WalletActivity"/>
@@ -45,10 +44,22 @@
         <activity android:name=".mvp.ui.activity.wallet.PaySettingActivity"/>
         <activity android:name=".mvp.ui.activity.wallet.WithdrawActivity"/>
         <activity android:name=".mvp.ui.activity.wallet.IncomeListActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.IncomeDetailsActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.AddCardActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.InputPasswordActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.ResetPayPasswordActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.SetPayPasswordActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.UnbindingCardActivity"/>
+        <activity android:name=".mvp.ui.activity.wallet.UpdatePayPasswordActivity"/>
+        <!--车辆管理-->
+        <activity android:name=".mvp.ui.activity.VehicleManagerActivity"/>
+        <activity android:name=".mvp.ui.activity.AddVehicleActivity"/>
+        <activity android:name=".mvp.ui.activity.ContainerTypeActivity"/>
+        <activity android:name=".mvp.ui.activity.VehicleTypeActivity"/>
+        <activity android:name=".mvp.ui.activity.LinkTypeActivity"/>
         <!-- ImagePicker 相关配置 -->
         <activity android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".mvp.ui.activity.wallet.SetPayPasswordActivity" />
     </application>
 
 </manifest>
