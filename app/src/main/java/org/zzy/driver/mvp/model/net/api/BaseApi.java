@@ -74,7 +74,7 @@ public class BaseApi {
     }
 
     /**
-     * 上传文件使用这个接口
+     * 上传图片使用这个接口
      * */
     public void uploadeFile(final HttpRequest request, Map<String,File> fileMap, final HttpCallBack callBack){
         HttpHeader.setDefaultHeader(request);
