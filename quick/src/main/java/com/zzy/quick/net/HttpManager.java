@@ -93,6 +93,7 @@ public class HttpManager {
         if(TextUtils.isEmpty(baseUrl)){
             throw new IllegalStateException("BaseUrl can not be null");
         }
+        //如果缓存中已经有Retrofit对象，则直接使用缓存
         if(retrofitMap.get(baseUrl)!=null) return retrofitMap.get(baseUrl);
 
         if(provider==null){
@@ -115,6 +116,7 @@ public class HttpManager {
         }
 
         Retrofit retrofit=builder.build();
+        //通过baseUrl缓存Retrofit对象
         retrofitMap.put(baseUrl,retrofit);
         providerMap.put(baseUrl,provider);
 
