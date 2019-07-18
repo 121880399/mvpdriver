@@ -1,12 +1,14 @@
 package org.zzy.driver;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.zzy.quick.net.HttpManager;
 import com.zzy.quick.net.NetError;
 import com.zzy.quick.net.NetProvider;
 import com.zzy.quick.net.RequestHandler;
 import com.zzy.quick.utils.Utils;
+import com.zzy.quick.utils.WatchDogKiller;
 import com.zzy.quick.utils.log.LogFactory;
 
 
@@ -26,6 +28,12 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 public class BaseApplication extends Application {
 
     private static BoxStore mBoxStore;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        WatchDogKiller.stopWatchDog();
+    }
 
     @Override
     public void onCreate() {
