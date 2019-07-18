@@ -1,8 +1,10 @@
 package com.zzy.quick.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
@@ -14,9 +16,11 @@ import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 
 /**
  * <pre>
@@ -38,9 +42,23 @@ public final class ToastUtils {
     private static int messageColor    = DEFAULT_COLOR;
     private static WeakReference<View> sViewWeakReference;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
+    private static Field sField_TN;
+    private static Field sField_TN_Handler;
 
     private ToastUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    static {
+        //初始化时进行反射，只反射一次
+        try {
+            sField_TN = Toast.class.getDeclaredField("mTN");
+            sField_TN.setAccessible(true);
+            sField_TN_Handler = sField_TN.getType().getDeclaredField("mHandler");
+            sField_TN_Handler.setAccessible(true);
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -435,6 +453,7 @@ public final class ToastUtils {
     private static void show(final CharSequence text, final int duration) {
         cancel();
         boolean isCustom = false;
+        //自定义Toast
         if (sViewWeakReference != null) {
             final View view = sViewWeakReference.get();
             if (view != null) {
@@ -444,6 +463,7 @@ public final class ToastUtils {
                 isCustom = true;
             }
         }
+        //非自定义Toast
         if (!isCustom) {
             if (messageColor != DEFAULT_COLOR) {
                 SpannableString spannableString = new SpannableString(text);
@@ -453,6 +473,10 @@ public final class ToastUtils {
             } else {
                 sToast = Toast.makeText(Utils.getContext(), text, duration);
             }
+        }
+        int sdkInt = Build.VERSION.SDK_INT;
+        if(sdkInt >= Build.VERSION_CODES.N && sdkInt < Build.VERSION_CODES.O){
+            hook(sToast);
         }
         View view = sToast.getView();
         if (bgResource != -1) {
@@ -473,4 +497,48 @@ public final class ToastUtils {
             sToast = null;
         }
     }
+
+    /**
+     * 对Handler进行
+     * @param toast
+     */
+    private static void hook(Toast toast) {
+        try {
+            Object tn = sField_TN.get(toast);
+            Handler preHandler = (Handler) sField_TN_Handler.get(tn);
+            sField_TN_Handler.set(tn, new SafeHandler(preHandler));
+        } catch (Exception e) {
+        }
+    }
+
+}
+
+class SafeHandler extends Handler{
+
+    //用来保存Tn原有handler
+    private Handler mNestedHandler;
+
+    public SafeHandler(Handler nestedHandler) {
+        //构造方法里将Tn原有Handler传入
+        mNestedHandler = nestedHandler;
+    }
+
+    /**
+     * handleMessage是在dispatchMessage里被调用的，所以在这里捕获异常就可以
+     * @param msg
+     */
+    @Override
+    public void dispatchMessage(Message msg) {
+        try {
+            super.dispatchMessage(msg);
+        } catch (WindowManager.BadTokenException e) {
+        }
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        //交由原有Handler处理
+        mNestedHandler.handleMessage(msg);
+    }
+
 }
